@@ -44,9 +44,10 @@ function Navbar() {
               <a
                 key={link.href}
                 href={link.href}
-                className="text-muted-foreground hover:text-foreground transition-colors font-medium"
+                className="relative text-muted-foreground hover:text-foreground transition-colors font-medium group"
               >
                 {link.label}
+                <span className="absolute left-0 -bottom-1 w-0 h-0.5 bg-sage transition-all duration-300 group-hover:w-full"></span>
               </a>
             ))}
           </div>
