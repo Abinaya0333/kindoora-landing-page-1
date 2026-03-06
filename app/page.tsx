@@ -7,7 +7,7 @@ import { ChevronDown, Menu, X, Shield, Leaf, Zap, Package, Heart, Home, Award, C
 // Product Images
 const PRODUCT_IMAGE_1 = "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/imageArtboard%201-tlw7NYIBzYK9B6AjnS7NnBv6GuCHML.jpg"
 const PRODUCT_IMAGE_2 = "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/imageArtboard%202-ut8Gs1QcH0E3pp6WWbnDiagFkmw5mw.jpg"
-const LOGO_IMAGE = "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/logo%20white%20png-OIyVg9FYmNoNOv5RWpkHo1EDfCMN3G.png"
+const LOGO_IMAGE = "/images/kindoora-logo.png"
 
 // Navbar Component
 function Navbar() {
