@@ -288,22 +288,6 @@ function SolutionSection() {
     </section>
   )
 }
-            <div
-              key={index}
-              className="bg-white rounded-2xl p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow"
-            >
-              <div className="w-12 h-12 bg-sage/10 rounded-xl flex items-center justify-center mb-5">
-                <feature.icon className="w-6 h-6 text-sage" />
-              </div>
-              <h3 className="text-lg font-semibold text-foreground mb-2">{feature.title}</h3>
-              <p className="text-muted-foreground leading-relaxed">{feature.description}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  )
-}
 
 // Benefits Section
 function BenefitsSection() {
