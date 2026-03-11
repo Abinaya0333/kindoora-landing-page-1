@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Image from "next/image"
 import { ChevronDown, Menu, X, Shield, Leaf, Zap, Package, Heart, Home, Award, Clock, Check, Star, Droplets, Scissors, Calendar } from "lucide-react"
 
@@ -18,15 +18,16 @@ function Navbar() {
     { href: "#benefits", label: "Benefits" },
     { href: "#how-it-works", label: "How It Works" },
     { href: "#faq", label: "FAQ" },
+    { href: "#contact", label: "Contact Us" },
   ]
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-cream/95 backdrop-blur-sm border-b border-border">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-cream/98 backdrop-blur-sm border-b border-border">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 md:h-20">
-          {/* Logo */}
-          <a href="#home" className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-sage rounded-full flex items-center justify-center">
+          {/* Logo and Brand Name - Left */}
+          <a href="#home" className="flex items-center gap-2 hover:opacity-80 transition-opacity flex-shrink-0">
+            <div className="w-9 h-9 md:w-10 md:h-10 bg-sage rounded-full flex items-center justify-center shadow-md">
               <Image 
                 src={LOGO_IMAGE} 
                 alt="Kindoora Logo" 
@@ -35,37 +36,37 @@ function Navbar() {
                 className="object-contain"
               />
             </div>
-            <span className="text-xl md:text-2xl font-semibold text-foreground">Kindoora</span>
+            <span className="text-lg md:text-xl font-bold text-foreground tracking-tight">Kindoora</span>
           </a>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
+          {/* Desktop Navigation - Center */}
+          <div className="hidden md:flex items-center gap-12 flex-1 justify-center">
+            {navLinks.slice(0, 4).map((link) => (
               <a
                 key={link.href}
                 href={link.href}
-                className="relative text-muted-foreground hover:text-foreground transition-colors font-medium group"
+                className="relative text-muted-foreground hover:text-foreground transition-colors font-medium text-sm"
               >
                 {link.label}
-                <span className="absolute left-0 -bottom-1 w-0 h-0.5 bg-sage transition-all duration-300 group-hover:w-full"></span>
+                <span className="absolute left-0 -bottom-1 w-0 h-0.5 bg-sage transition-all duration-300 hover:w-full"></span>
               </a>
             ))}
           </div>
 
-          {/* CTA Button */}
-          <div className="hidden md:block">
+          {/* CTA Button - Right */}
+          <div className="hidden md:block flex-shrink-0">
             <a
-              href="#shop"
-              className="inline-flex items-center justify-center px-6 py-2.5 bg-terracotta text-white font-medium rounded-full hover:bg-terracotta-dark transition-colors"
+              href="#contact"
+              className="inline-flex items-center justify-center px-6 py-2.5 bg-terracotta text-white font-medium rounded-full hover:bg-terracotta-dark transition-colors text-sm"
             >
-              Shop Now
+              Contact Us
             </a>
           </div>
 
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden p-2 text-foreground"
+            className="md:hidden p-2 text-foreground flex-shrink-0"
             aria-label="Toggle menu"
           >
             {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -87,11 +88,11 @@ function Navbar() {
                 </a>
               ))}
               <a
-                href="#shop"
+                href="#contact"
                 className="inline-flex items-center justify-center px-6 py-2.5 bg-terracotta text-white font-medium rounded-full hover:bg-terracotta-dark transition-colors mt-2"
                 onClick={() => setIsMenuOpen(false)}
               >
-                Shop Now
+                Contact Us
               </a>
             </div>
           </div>
@@ -116,10 +117,10 @@ function HeroSection() {
             </p>
             <div className="mt-8 flex flex-col sm:flex-row gap-4">
               <a
-                href="#shop"
+                href="#contact"
                 className="inline-flex items-center justify-center px-8 py-3.5 bg-terracotta text-white font-medium rounded-full hover:bg-terracotta-dark transition-colors text-lg"
               >
-                Shop Now
+                Contact Us
               </a>
               <a
                 href="#how-it-works"
@@ -128,18 +129,18 @@ function HeroSection() {
                 Learn More
               </a>
             </div>
-            <div className="mt-10 flex items-center gap-6">
-              <div className="flex items-center gap-2">
-                <Shield className="w-5 h-5 text-sage" />
-                <span className="text-sm text-muted-foreground">Child-Safe</span>
+            <div className="mt-10 flex flex-wrap items-center gap-3">
+              <div className="flex items-center gap-2 bg-sage/10 px-4 py-2.5 rounded-full border border-sage/20 hover:bg-sage/15 transition-colors">
+                <Shield className="w-4 h-4 text-sage" />
+                <span className="text-sm font-medium text-sage-dark">Kid Safe</span>
               </div>
-              <div className="flex items-center gap-2">
-                <Leaf className="w-5 h-5 text-sage" />
-                <span className="text-sm text-muted-foreground">Non-Toxic</span>
+              <div className="flex items-center gap-2 bg-sage/10 px-4 py-2.5 rounded-full border border-sage/20 hover:bg-sage/15 transition-colors">
+                <Leaf className="w-4 h-4 text-sage" />
+                <span className="text-sm font-medium text-sage-dark">Non-Toxic</span>
               </div>
-              <div className="flex items-center gap-2">
-                <Award className="w-5 h-5 text-sage" />
-                <span className="text-sm text-muted-foreground">Premium Quality</span>
+              <div className="flex items-center gap-2 bg-sage/10 px-4 py-2.5 rounded-full border border-sage/20 hover:bg-sage/15 transition-colors">
+                <Zap className="w-4 h-4 text-sage" />
+                <span className="text-sm font-medium text-sage-dark">Soft Protection</span>
               </div>
             </div>
           </div>
@@ -171,13 +172,13 @@ function ProblemSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div className="relative">
-            <div className="bg-cream-dark rounded-3xl p-8 md:p-12">
+            <div className="rounded-3xl overflow-hidden shadow-lg">
               <Image
-                src={PRODUCT_IMAGE_2}
-                alt="Kindoora Edge Protector Detail"
-                width={400}
-                height={400}
-                className="w-full h-auto object-contain"
+                src="/images/problem-sharp-edges.jpg"
+                alt="Toddler exploring near sharp furniture edges"
+                width={500}
+                height={500}
+                className="w-full h-auto object-cover"
               />
             </div>
           </div>
@@ -215,55 +216,73 @@ function ProblemSection() {
 function SolutionSection() {
   const features = [
     {
-      icon: Shield,
+      icon: Package,
       title: "Soft Cushioning",
-      description: "Premium foam material that absorbs impact and protects from sharp corners."
+      description: "Gentle padding protects your toddler from bumps and falls"
     },
     {
       icon: Leaf,
       title: "Non-Toxic Material",
-      description: "Made with baby-safe, eco-friendly materials free from harmful chemicals."
+      description: "Child-safe materials that are completely non-toxic"
+    },
+    {
+      icon: Home,
+      title: "Strong Adhesive",
+      description: "Durable installation that holds firmly over time"
     },
     {
       icon: Zap,
-      title: "Strong Adhesive",
-      description: "Industrial-grade adhesive that stays secure without damaging furniture."
-    },
-    {
-      icon: Clock,
       title: "Easy Installation",
-      description: "Simple peel-and-stick application that takes just minutes to complete."
+      description: "Simple peel-and-stick application takes seconds"
     }
   ]
 
   return (
     <section id="solution" className="py-16 md:py-24 bg-cream">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto">
-          <span className="inline-block px-4 py-1.5 bg-sage/10 text-sage-dark rounded-full text-sm font-medium mb-4">
-            Our Solution
-          </span>
-          <h2 className="text-3xl md:text-4xl font-semibold text-foreground text-balance">
-            Introducing Kindoora Edge Protector
-          </h2>
-          <p className="mt-6 text-lg text-muted-foreground leading-relaxed">
-            Thoughtfully designed protection that blends seamlessly with your home while keeping your little ones safe.
-          </p>
+        <h2 className="text-3xl md:text-4xl font-semibold text-foreground text-center mb-4 text-balance">
+          The Kindoora Edge Protector
+        </h2>
+        <p className="text-center text-muted-foreground text-lg mb-12 max-w-2xl mx-auto">
+          Premium corner protection designed with your family&apos;s safety in mind
+        </p>
+        
+        {/* Product Image */}
+        <div className="flex justify-center mb-16">
+          <div className="relative w-full max-w-md">
+            <div className="absolute inset-0 bg-sage/10 rounded-3xl transform -rotate-2"></div>
+            <div className="relative bg-white rounded-3xl p-8 shadow-lg">
+              <Image
+                src={PRODUCT_IMAGE_1}
+                alt="Kindoora Edge Protector"
+                width={400}
+                height={400}
+                className="w-full h-auto object-contain"
+              />
+            </div>
+          </div>
         </div>
 
-        <div className="mt-16 grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {features.map((feature, index) => (
-            <div
-              key={index}
-              className="bg-white rounded-2xl p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow"
-            >
-              <div className="w-12 h-12 bg-sage/10 rounded-xl flex items-center justify-center mb-5">
-                <feature.icon className="w-6 h-6 text-sage" />
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {features.map((feature, idx) => {
+            const Icon = feature.icon
+            return (
+              <div
+                key={idx}
+                className="bg-white rounded-2xl p-6 text-center shadow-sm hover:shadow-md transition-shadow"
+              >
+                <div className="flex justify-center mb-4">
+                  <Icon className="w-8 h-8 text-sage" />
+                </div>
+                <h3 className="text-lg font-semibold text-foreground mb-2">
+                  {feature.title}
+                </h3>
+                <p className="text-muted-foreground text-sm">
+                  {feature.description}
+                </p>
               </div>
-              <h3 className="text-lg font-semibold text-foreground mb-2">{feature.title}</h3>
-              <p className="text-muted-foreground leading-relaxed">{feature.description}</p>
-            </div>
-          ))}
+            )
+          })}
         </div>
       </div>
     </section>
@@ -330,8 +349,7 @@ function WhyChooseSection() {
     { icon: Award, text: "Premium Quality" },
     { icon: Shield, text: "Child-Safe Materials" },
     { icon: Zap, text: "Easy Installation" },
-    { icon: Check, text: "Warranty Included" },
-    { icon: Package, text: "Premium Packaging" }
+    { icon: Check, text: "Warranty Included" }
   ]
 
   return (
@@ -363,25 +381,14 @@ function WhyChooseSection() {
           </div>
           
           <div className="relative">
-            <div className="bg-cream rounded-3xl p-8 md:p-12">
-              <div className="grid grid-cols-2 gap-4">
-                <div className="bg-white rounded-2xl p-6 text-center">
-                  <div className="text-3xl font-bold text-sage">10K+</div>
-                  <div className="text-sm text-muted-foreground mt-1">Happy Families</div>
-                </div>
-                <div className="bg-white rounded-2xl p-6 text-center">
-                  <div className="text-3xl font-bold text-sage">4.9</div>
-                  <div className="text-sm text-muted-foreground mt-1">Star Rating</div>
-                </div>
-                <div className="bg-white rounded-2xl p-6 text-center">
-                  <div className="text-3xl font-bold text-sage">100%</div>
-                  <div className="text-sm text-muted-foreground mt-1">Safe Materials</div>
-                </div>
-                <div className="bg-white rounded-2xl p-6 text-center">
-                  <div className="text-3xl font-bold text-sage">2 Year</div>
-                  <div className="text-sm text-muted-foreground mt-1">Warranty</div>
-                </div>
-              </div>
+            <div className="rounded-3xl overflow-hidden shadow-lg">
+              <Image
+                src="/images/trusted-parents.jpg"
+                alt="Caring parents with their baby in a safe home"
+                width={500}
+                height={500}
+                className="w-full h-auto object-cover"
+              />
             </div>
           </div>
         </div>
@@ -392,6 +399,8 @@ function WhyChooseSection() {
 
 // Social Proof Section
 function SocialProofSection() {
+  const [currentIndex, setCurrentIndex] = useState(0)
+
   const testimonials = [
     {
       name: "Priya Sharma",
@@ -413,6 +422,14 @@ function SocialProofSection() {
     }
   ]
 
+  // Auto-advance carousel
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % testimonials.length)
+    }, 5000)
+    return () => clearInterval(interval)
+  }, [testimonials.length])
+
   return (
     <section className="py-16 md:py-24 bg-cream">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -428,31 +445,52 @@ function SocialProofSection() {
           </p>
         </div>
 
-        <div className="mt-16 grid md:grid-cols-3 gap-8">
-          {testimonials.map((testimonial, index) => (
+        {/* Testimonial Carousel */}
+        <div className="mt-16 max-w-2xl mx-auto">
+          <div className="overflow-hidden">
             <div
-              key={index}
-              className="bg-white rounded-2xl p-8 shadow-sm hover:shadow-md transition-shadow"
+              className="flex transition-transform duration-500 ease-out"
+              style={{ transform: `translateX(-${currentIndex * 100}%)` }}
             >
-              <div className="flex gap-1 mb-4">
-                {[...Array(testimonial.rating)].map((_, i) => (
-                  <Star key={i} className="w-5 h-5 fill-terracotta text-terracotta" />
-                ))}
-              </div>
-              <p className="text-muted-foreground leading-relaxed mb-6">
-                &ldquo;{testimonial.content}&rdquo;
-              </p>
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-sage/20 rounded-full flex items-center justify-center">
-                  <span className="text-sage font-semibold">{testimonial.name.charAt(0)}</span>
+              {testimonials.map((testimonial, index) => (
+                <div key={index} className="w-full flex-shrink-0">
+                  <div className="bg-white rounded-3xl p-8 md:p-12 shadow-lg">
+                    <div className="flex gap-1 mb-4">
+                      {[...Array(testimonial.rating)].map((_, i) => (
+                        <Star key={i} className="w-5 h-5 fill-terracotta text-terracotta" />
+                      ))}
+                    </div>
+                    <p className="text-lg text-muted-foreground leading-relaxed mb-8">
+                      &ldquo;{testimonial.content}&rdquo;
+                    </p>
+                    <div className="flex items-center gap-4">
+                      <div className="w-14 h-14 bg-sage/20 rounded-full flex items-center justify-center flex-shrink-0">
+                        <span className="text-lg font-bold text-sage">{testimonial.name.charAt(0)}</span>
+                      </div>
+                      <div>
+                        <div className="font-semibold text-foreground text-lg">{testimonial.name}</div>
+                        <div className="text-sm text-muted-foreground">{testimonial.role}</div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div>
-                  <div className="font-medium text-foreground">{testimonial.name}</div>
-                  <div className="text-sm text-muted-foreground">{testimonial.role}</div>
-                </div>
-              </div>
+              ))}
             </div>
-          ))}
+          </div>
+
+          {/* Carousel Indicators */}
+          <div className="flex justify-center gap-2 mt-8">
+            {testimonials.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentIndex(index)}
+                className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
+                  index === currentIndex ? 'bg-sage w-8' : 'bg-sage/30 hover:bg-sage/50'
+                }`}
+                aria-label={`Go to testimonial ${index + 1}`}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </section>
@@ -499,21 +537,26 @@ function HowItWorksSection() {
           </p>
         </div>
 
-        <div className="mt-16 grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          {steps.map((step, index) => (
-            <div key={index} className="relative">
-              <div className="bg-cream rounded-2xl p-6 md:p-8 h-full">
+        <div className="mt-16 grid lg:grid-cols-2 gap-12 items-center">
+          <div className="rounded-3xl overflow-hidden shadow-lg">
+            <Image
+              src="/images/solution-installation.jpg"
+              alt="Installation process demonstration"
+              width={500}
+              height={500}
+              className="w-full h-auto object-cover"
+            />
+          </div>
+
+          <div className="grid sm:grid-cols-2 gap-6">
+            {steps.map((step, index) => (
+              <div key={index} className="bg-cream rounded-2xl p-6 md:p-8">
                 <div className="text-4xl font-bold text-sage/20 mb-4">{step.number}</div>
                 <h3 className="text-lg font-semibold text-foreground mb-2">{step.title}</h3>
                 <p className="text-muted-foreground leading-relaxed">{step.description}</p>
               </div>
-              {index < steps.length - 1 && (
-                <div className="hidden lg:block absolute top-1/2 -right-4 transform -translate-y-1/2">
-                  <ChevronDown className="w-8 h-8 text-sage/30 rotate-[-90deg]" />
-                </div>
-              )}
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </section>
@@ -605,29 +648,140 @@ function FAQSection() {
 }
 
 // CTA Section
-function CTASection() {
+// Contact Form Section
+function ContactSection() {
+  const [formData, setFormData] = useState({
+    fullName: "",
+    email: "",
+    phone: "",
+    message: "",
+  })
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitMessage, setSubmitMessage] = useState("")
+
+  const handleChange = (e) => {
+    const { name, value } = e.target
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }))
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    setIsSubmitting(true)
+    
+    // Simulate submission delay
+    await new Promise(resolve => setTimeout(resolve, 1000))
+    
+    // Log the form data (in production, this would be sent to a server)
+    console.log("[v0] Contact form submitted:", formData)
+    
+    // Show success message
+    setSubmitMessage("Thank you! We've received your message. We'll get back to you within 24 hours.")
+    setFormData({ fullName: "", email: "", phone: "", message: "" })
+    
+    // Clear message after 5 seconds
+    setTimeout(() => setSubmitMessage(""), 5000)
+    setIsSubmitting(false)
+  }
+
   return (
-    <section id="shop" className="py-16 md:py-24 bg-sage">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h2 className="text-3xl md:text-4xl font-semibold text-white text-balance">
-          Ready to Baby-Proof Your Home?
-        </h2>
-        <p className="mt-6 text-lg text-white/80 leading-relaxed max-w-2xl mx-auto">
-          Join thousands of parents who trust Kindoora to keep their little ones safe. Free shipping on all orders.
-        </p>
-        <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
-          <a
-            href="#"
-            className="inline-flex items-center justify-center px-8 py-3.5 bg-white text-sage-dark font-medium rounded-full hover:bg-cream transition-colors text-lg"
-          >
-            Shop Now
-          </a>
-          <a
-            href="#"
-            className="inline-flex items-center justify-center px-8 py-3.5 bg-transparent text-white font-medium rounded-full border-2 border-white/30 hover:bg-white/10 transition-colors text-lg"
-          >
+    <section id="contact" className="py-16 md:py-24 bg-cream">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-12">
+          <span className="inline-block px-4 py-1.5 bg-sage/10 text-sage-dark rounded-full text-sm font-medium mb-4">
+            Get in Touch
+          </span>
+          <h2 className="text-3xl md:text-4xl font-semibold text-foreground text-balance">
             Contact Us
-          </a>
+          </h2>
+          <p className="mt-6 text-lg text-muted-foreground leading-relaxed">
+            Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible.
+          </p>
+        </div>
+
+        <div className="bg-white rounded-3xl p-8 md:p-12 shadow-lg">
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div className="grid md:grid-cols-2 gap-6">
+              <div>
+                <label htmlFor="fullName" className="block text-sm font-medium text-foreground mb-2">
+                  Full Name
+                </label>
+                <input
+                  type="text"
+                  id="fullName"
+                  name="fullName"
+                  value={formData.fullName}
+                  onChange={handleChange}
+                  required
+                  className="w-full px-4 py-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-sage/50 transition-colors"
+                  placeholder="Your name"
+                />
+              </div>
+              <div>
+                <label htmlFor="email" className="block text-sm font-medium text-foreground mb-2">
+                  Email Address
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                  className="w-full px-4 py-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-sage/50 transition-colors"
+                  placeholder="your@email.com"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label htmlFor="phone" className="block text-sm font-medium text-foreground mb-2">
+                Phone Number
+              </label>
+              <input
+                type="tel"
+                id="phone"
+                name="phone"
+                value={formData.phone}
+                onChange={handleChange}
+                required
+                className="w-full px-4 py-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-sage/50 transition-colors"
+                placeholder="+91 XXXXX XXXXX"
+              />
+            </div>
+
+            <div>
+              <label htmlFor="message" className="block text-sm font-medium text-foreground mb-2">
+                Message
+              </label>
+              <textarea
+                id="message"
+                name="message"
+                value={formData.message}
+                onChange={handleChange}
+                required
+                rows={5}
+                className="w-full px-4 py-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-sage/50 transition-colors resize-none"
+                placeholder="Tell us how we can help..."
+              />
+            </div>
+
+            {submitMessage && (
+              <div className={`p-4 rounded-lg ${submitMessage.includes("Thank you") ? "bg-sage/10 text-sage-dark" : "bg-red-50 text-red-700"}`}>
+                {submitMessage}
+              </div>
+            )}
+
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="w-full py-3.5 bg-terracotta text-white font-medium rounded-lg hover:bg-terracotta-dark transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {isSubmitting ? "Sending..." : "Send Message"}
+            </button>
+          </form>
         </div>
       </div>
     </section>
@@ -672,10 +826,10 @@ export default function KindooraLandingPage() {
       <BenefitsSection />
       <WhyChooseSection />
       <SocialProofSection />
-      <HowItWorksSection />
-      <FAQSection />
-      <CTASection />
-      <Footer />
+        <HowItWorksSection />
+        <FAQSection />
+        <ContactSection />
+        <Footer />
     </main>
   )
 }
