@@ -153,8 +153,9 @@ function HeroSection() {
   return (
     <section id="home" className="pt-32 md:pt-48 pb-20 md:pb-32 bg-cream">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid md:grid-cols-2 gap-16 items-center">
-          <div className="order-2 md:order-1">
+        {/* Center-aligned hero content */}
+        <div className="flex flex-col items-center text-center mb-20">
+          <div className="w-full max-w-2xl">
             <div
               className="overflow-hidden"
               onTouchStart={handleHeroTouchStart}
@@ -169,19 +170,19 @@ function HeroSection() {
                     <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-foreground leading-tight text-balance">
                       {slide.headline}
                     </h1>
-                    <p className="mt-6 text-lg md:text-xl text-muted-foreground leading-relaxed max-w-lg">
+                    <p className="mt-8 text-lg md:text-xl text-muted-foreground leading-relaxed">
                       {slide.subheadline}
                     </p>
-                    <div className="mt-8 flex flex-col sm:flex-row items-start gap-4">
+                    <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-6 w-full">
                       <a
                         href="#contact"
-                        className="inline-flex items-center justify-center px-8 py-3.5 bg-terracotta text-white font-medium rounded-full hover:bg-terracotta-dark transition-colors text-lg"
+                        className="inline-flex items-center justify-center px-8 py-3.5 bg-terracotta text-white font-medium rounded-full hover:bg-terracotta-dark transition-colors text-lg w-full sm:w-auto"
                       >
                         {slide.cta}
                       </a>
                       <a
                         href="#how-it-works"
-                        className="inline-flex items-center justify-center px-8 py-3.5 bg-white text-foreground font-medium rounded-full border border-border hover:bg-cream-dark transition-colors text-lg"
+                        className="inline-flex items-center justify-center px-8 py-3.5 bg-white text-foreground font-medium rounded-full border border-border hover:bg-cream-dark transition-colors text-lg w-full sm:w-auto"
                       >
                         Learn More
                       </a>
@@ -191,74 +192,82 @@ function HeroSection() {
               </div>
             </div>
 
-            <div className="mt-6 flex items-center gap-4">
-              <button
-                type="button"
-                onClick={heroPrev}
-                className="px-3 py-1 text-sm rounded-full border border-border bg-white hover:bg-cream-dark transition-colors"
-                aria-label="Previous hero slide"
-              >
-                ←
-              </button>
-              <div className="flex gap-2">
-                {["Professional", "Emotional", "Trust"].map((label, index) => (
-                  <button
-                    key={label}
-                    type="button"
-                    onClick={() => setHeroSlide(index)}
-                    className={`px-3 py-1 text-xs rounded-full border transition-colors ${
-                      heroSlide === index
-                        ? "bg-sage text-sage-dark border-sage"
-                        : "bg-white text-muted-foreground border-border hover:bg-cream-dark"
-                    }`}
-                    aria-label={`${label} hero slide`}
-                  >
-                    {label}
-                  </button>
-                ))}
-              </div>
-              <button
-                type="button"
-                onClick={heroNext}
-                className="px-3 py-1 text-sm rounded-full border border-border bg-white hover:bg-cream-dark transition-colors"
-                aria-label="Next hero slide"
-              >
-                →
-              </button>
-            </div>
-
-            <div className="mt-12 grid grid-cols-2 lg:grid-cols-4 gap-4 w-full">
-              <div className="flex items-center justify-center gap-2 bg-sage/10 px-3 py-3 rounded-2xl border border-sage/20 hover:bg-sage/15 transition-colors w-full h-full min-h-[64px] sm:min-h-0">
-                <Shield className="w-4 h-4 text-sage flex-shrink-0" />
-                <span className="text-sm font-medium text-sage-dark text-center leading-tight">Kid Safe</span>
-              </div>
-              <div className="flex items-center justify-center gap-2 bg-sage/10 px-3 py-3 rounded-2xl border border-sage/20 hover:bg-sage/15 transition-colors w-full h-full min-h-[64px] sm:min-h-0">
-                <Leaf className="w-4 h-4 text-sage flex-shrink-0" />
-                <span className="text-sm font-medium text-sage-dark text-center leading-tight">Non-Toxic</span>
-              </div>
-              <div className="flex items-center justify-center gap-2 bg-sage/10 px-3 py-3 rounded-2xl border border-sage/20 hover:bg-sage/15 transition-colors w-full h-full min-h-[64px] sm:min-h-0">
-                <Zap className="w-4 h-4 text-sage flex-shrink-0" />
-                <span className="text-sm font-medium text-sage-dark text-center leading-tight">Soft Protection</span>
-              </div>
-              <div className="flex items-center justify-center gap-2 bg-sage/10 px-3 py-3 rounded-2xl border border-sage/20 hover:bg-sage/15 transition-colors w-full h-full min-h-[64px] sm:min-h-0">
-                <Award className="w-4 h-4 text-sage flex-shrink-0" />
-                <span className="text-sm font-medium text-sage-dark text-center leading-tight">Rounded Edge Safety</span>
+            {/* Navigation and tag buttons - centered */}
+            <div className="mt-10 flex flex-col items-center gap-6">
+              <div className="flex items-center justify-center gap-4">
+                <button
+                  type="button"
+                  onClick={heroPrev}
+                  className="px-4 py-2 text-sm rounded-full border border-border bg-white hover:bg-cream-dark transition-colors"
+                  aria-label="Previous hero slide"
+                >
+                  ←
+                </button>
+                <div className="flex gap-3">
+                  {["Professional", "Emotional", "Trust"].map((label, index) => (
+                    <button
+                      key={label}
+                      type="button"
+                      onClick={() => setHeroSlide(index)}
+                      className={`px-4 py-2 text-xs rounded-full border transition-colors ${
+                        heroSlide === index
+                          ? "bg-sage text-white border-sage"
+                          : "bg-white text-muted-foreground border-border hover:bg-cream-dark"
+                      }`}
+                      aria-label={`${label} hero slide`}
+                    >
+                      {label}
+                    </button>
+                  ))}
+                </div>
+                <button
+                  type="button"
+                  onClick={heroNext}
+                  className="px-4 py-2 text-sm rounded-full border border-border bg-white hover:bg-cream-dark transition-colors"
+                  aria-label="Next hero slide"
+                >
+                  →
+                </button>
               </div>
             </div>
           </div>
-          <div className="order-1 md:order-2 flex justify-center">
-            <div className="relative w-full max-w-md">
-              <div className="absolute inset-0 bg-sage/10 rounded-3xl transform rotate-3"></div>
-              <div className="relative bg-white rounded-3xl overflow-hidden shadow-lg">
-                <Image
-                  src="/images/hero-baby.jpg"
-                  alt="Happy toddler safely playing in a protected home"
-                  width={500}
-                  height={500}
-                  className="w-full h-auto object-cover"
-                  priority
-                />
-              </div>
+        </div>
+
+        {/* Feature cards grid - 2x2 responsive */}
+        <div className="max-w-4xl mx-auto mb-20">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <div className="flex items-center justify-center gap-2 bg-sage/10 px-4 py-4 rounded-2xl border border-sage/20 hover:bg-sage/15 transition-colors h-24 md:h-28">
+              <Shield className="w-5 h-5 text-sage flex-shrink-0" />
+              <span className="text-xs md:text-sm font-medium text-sage-dark text-center leading-snug">Kid Safe</span>
+            </div>
+            <div className="flex items-center justify-center gap-2 bg-sage/10 px-4 py-4 rounded-2xl border border-sage/20 hover:bg-sage/15 transition-colors h-24 md:h-28">
+              <Leaf className="w-5 h-5 text-sage flex-shrink-0" />
+              <span className="text-xs md:text-sm font-medium text-sage-dark text-center leading-snug">Non-Toxic</span>
+            </div>
+            <div className="flex items-center justify-center gap-2 bg-sage/10 px-4 py-4 rounded-2xl border border-sage/20 hover:bg-sage/15 transition-colors h-24 md:h-28">
+              <Zap className="w-5 h-5 text-sage flex-shrink-0" />
+              <span className="text-xs md:text-sm font-medium text-sage-dark text-center leading-snug">Soft Protection</span>
+            </div>
+            <div className="flex items-center justify-center gap-2 bg-sage/10 px-4 py-4 rounded-2xl border border-sage/20 hover:bg-sage/15 transition-colors h-24 md:h-28">
+              <Award className="w-5 h-5 text-sage flex-shrink-0" />
+              <span className="text-xs md:text-sm font-medium text-sage-dark text-center leading-snug">Rounded Edge Safety</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Baby image section - centered */}
+        <div className="flex justify-center">
+          <div className="relative w-full max-w-md">
+            <div className="absolute inset-0 bg-sage/10 rounded-3xl transform rotate-3"></div>
+            <div className="relative bg-white rounded-3xl overflow-hidden shadow-lg">
+              <Image
+                src="/images/hero-baby.jpg"
+                alt="Happy toddler safely playing in a protected home"
+                width={500}
+                height={500}
+                className="w-full h-auto object-cover"
+                priority
+              />
             </div>
           </div>
         </div>
