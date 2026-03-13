@@ -153,6 +153,23 @@ function HeroSection() {
   return (
     <section id="home" className="pt-32 md:pt-48 pb-20 md:pb-32 bg-cream">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Baby image section - centered at top */}
+        <div className="flex justify-center mb-20">
+          <div className="relative w-full max-w-md">
+            <div className="absolute inset-0 bg-sage/10 rounded-3xl transform rotate-3"></div>
+            <div className="relative bg-white rounded-3xl overflow-hidden shadow-lg">
+              <Image
+                src="/images/hero-baby.jpg"
+                alt="Happy toddler safely playing in a protected home"
+                width={500}
+                height={500}
+                className="w-full h-auto object-cover"
+                priority
+              />
+            </div>
+          </div>
+        </div>
+
         {/* Center-aligned hero content */}
         <div className="flex flex-col items-center text-center mb-20">
           <div className="w-full max-w-2xl">
@@ -234,7 +251,7 @@ function HeroSection() {
         </div>
 
         {/* Feature cards grid - 2x2 responsive */}
-        <div className="max-w-4xl mx-auto mb-20">
+        <div className="max-w-4xl mx-auto">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             <div className="flex items-center justify-center gap-2 bg-sage/10 px-4 py-4 rounded-2xl border border-sage/20 hover:bg-sage/15 transition-colors h-24 md:h-28">
               <Shield className="w-5 h-5 text-sage flex-shrink-0" />
@@ -251,23 +268,6 @@ function HeroSection() {
             <div className="flex items-center justify-center gap-2 bg-sage/10 px-4 py-4 rounded-2xl border border-sage/20 hover:bg-sage/15 transition-colors h-24 md:h-28">
               <Award className="w-5 h-5 text-sage flex-shrink-0" />
               <span className="text-xs md:text-sm font-medium text-sage-dark text-center leading-snug">Rounded Edge Safety</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Baby image section - centered */}
-        <div className="flex justify-center">
-          <div className="relative w-full max-w-md">
-            <div className="absolute inset-0 bg-sage/10 rounded-3xl transform rotate-3"></div>
-            <div className="relative bg-white rounded-3xl overflow-hidden shadow-lg">
-              <Image
-                src="/images/hero-baby.jpg"
-                alt="Happy toddler safely playing in a protected home"
-                width={500}
-                height={500}
-                className="w-full h-auto object-cover"
-                priority
-              />
             </div>
           </div>
         </div>
