@@ -172,7 +172,7 @@ function HeroSection() {
                     <p className="mt-6 text-lg md:text-xl text-muted-foreground leading-relaxed max-w-lg">
                       {slide.subheadline}
                     </p>
-                    <div className="mt-8 flex flex-col sm:flex-row items-center md:items-start justify-center md:justify-start gap-4">
+                    <div className="mt-8 flex flex-col sm:flex-row items-start gap-4">
                       <a
                         href="#contact"
                         className="inline-flex items-center justify-center px-8 py-3.5 bg-terracotta text-white font-medium rounded-full hover:bg-terracotta-dark transition-colors text-lg"
@@ -227,7 +227,7 @@ function HeroSection() {
               </button>
             </div>
 
-            <div className="mt-10 grid grid-cols-2 lg:grid-cols-4 gap-4 max-w-3xl mx-auto md:mx-0">
+            <div className="mt-12 grid grid-cols-2 lg:grid-cols-4 gap-4 w-full">
               <div className="flex items-center justify-center gap-2 bg-sage/10 px-3 py-3 rounded-2xl border border-sage/20 hover:bg-sage/15 transition-colors w-full h-full min-h-[64px] sm:min-h-0">
                 <Shield className="w-4 h-4 text-sage flex-shrink-0" />
                 <span className="text-sm font-medium text-sage-dark text-center leading-tight">Kid Safe</span>
