@@ -104,31 +104,129 @@ function Navbar() {
 
 // Hero Section
 function HeroSection() {
+  const heroSlides = [
+    {
+      tone: "Professional",
+      headline: "Transform Dangerous Corners into Safe Edges in Seconds",
+      subheadline:
+        "Edge Protector is designed to cushion sharp furniture edges and help prevent accidental injuries, creating a safer home environment for children and families.",
+      cta: "Make Your Home Safer Today",
+    },
+    {
+      tone: "Emotional",
+      headline: "Because One Sharp Corner Shouldn’t Hurt the People You Love",
+      subheadline:
+        "Edge Protector gently cushions dangerous furniture corners, helping protect your children from painful bumps while they explore and play.",
+      cta: "Protect Your Family Today",
+    },
+    {
+      tone: "Trust",
+      headline: "A Simple Safety Solution for Every Home",
+      subheadline:
+        "Edge Protector uses soft, durable materials to cover sharp furniture edges and help reduce the risk of injuries at home.",
+      cta: "Start Protecting Your Home",
+    },
+  ]
+
+  const [heroSlide, setHeroSlide] = useState(0)
+  const [heroTouchStart, setHeroTouchStart] = useState<number | null>(null)
+
+  const heroNext = () => setHeroSlide((prev) => (prev + 1) % heroSlides.length)
+  const heroPrev = () => setHeroSlide((prev) => (prev - 1 + heroSlides.length) % heroSlides.length)
+
+  const handleHeroTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+    setHeroTouchStart(e.touches[0].clientX)
+  }
+
+  const handleHeroTouchEnd = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (heroTouchStart === null) return
+    const deltaX = e.changedTouches[0].clientX - heroTouchStart
+    const threshold = 40
+    if (deltaX > threshold) {
+      heroPrev()
+    } else if (deltaX < -threshold) {
+      heroNext()
+    }
+    setHeroTouchStart(null)
+  }
+
   return (
     <section id="home" className="pt-32 md:pt-48 pb-16 md:pb-24 bg-cream">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div className="order-2 md:order-1">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-foreground leading-tight text-balance">
-              Gentle Safety for Growing Homes
-            </h1>
-            <p className="mt-6 text-lg md:text-xl text-muted-foreground leading-relaxed max-w-lg">
-              Protect your little explorers from sharp furniture edges while keeping your home warm, comfortable, and beautifully designed.
-            </p>
-            <div className="mt-8 flex flex-col sm:flex-row items-center md:items-start justify-center md:justify-start gap-4">
-              <a
-                href="#contact"
-                className="inline-flex items-center justify-center px-8 py-3.5 bg-terracotta text-white font-medium rounded-full hover:bg-terracotta-dark transition-colors text-lg"
+            <div
+              className="overflow-hidden"
+              onTouchStart={handleHeroTouchStart}
+              onTouchEnd={handleHeroTouchEnd}
+            >
+              <div
+                className="flex transition-transform duration-500 ease-out"
+                style={{ transform: `translateX(-${heroSlide * 100}%)` }}
               >
-                Contact Us
-              </a>
-              <a
-                href="#how-it-works"
-                className="inline-flex items-center justify-center px-8 py-3.5 bg-white text-foreground font-medium rounded-full border border-border hover:bg-cream-dark transition-colors text-lg"
-              >
-                Learn More
-              </a>
+                {heroSlides.map((slide, index) => (
+                  <div key={slide.tone} className="w-full flex-shrink-0">
+                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-foreground leading-tight text-balance">
+                      {slide.headline}
+                    </h1>
+                    <p className="mt-6 text-lg md:text-xl text-muted-foreground leading-relaxed max-w-lg">
+                      {slide.subheadline}
+                    </p>
+                    <div className="mt-8 flex flex-col sm:flex-row items-center md:items-start justify-center md:justify-start gap-4">
+                      <a
+                        href="#contact"
+                        className="inline-flex items-center justify-center px-8 py-3.5 bg-terracotta text-white font-medium rounded-full hover:bg-terracotta-dark transition-colors text-lg"
+                      >
+                        {slide.cta}
+                      </a>
+                      <a
+                        href="#how-it-works"
+                        className="inline-flex items-center justify-center px-8 py-3.5 bg-white text-foreground font-medium rounded-full border border-border hover:bg-cream-dark transition-colors text-lg"
+                      >
+                        Learn More
+                      </a>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
+
+            <div className="mt-6 flex items-center gap-4">
+              <button
+                type="button"
+                onClick={heroPrev}
+                className="px-3 py-1 text-sm rounded-full border border-border bg-white hover:bg-cream-dark transition-colors"
+                aria-label="Previous hero slide"
+              >
+                ←
+              </button>
+              <div className="flex gap-2">
+                {["Professional", "Emotional", "Trust"].map((label, index) => (
+                  <button
+                    key={label}
+                    type="button"
+                    onClick={() => setHeroSlide(index)}
+                    className={`px-3 py-1 text-xs rounded-full border transition-colors ${
+                      heroSlide === index
+                        ? "bg-sage text-sage-dark border-sage"
+                        : "bg-white text-muted-foreground border-border hover:bg-cream-dark"
+                    }`}
+                    aria-label={`${label} hero slide`}
+                  >
+                    {label}
+                  </button>
+                ))}
+              </div>
+              <button
+                type="button"
+                onClick={heroNext}
+                className="px-3 py-1 text-sm rounded-full border border-border bg-white hover:bg-cream-dark transition-colors"
+                aria-label="Next hero slide"
+              >
+                →
+              </button>
+            </div>
+
             <div className="mt-10 grid grid-cols-2 lg:grid-cols-4 gap-4 max-w-3xl mx-auto md:mx-0">
               <div className="flex items-center justify-center gap-2 bg-sage/10 px-3 py-3 rounded-2xl border border-sage/20 hover:bg-sage/15 transition-colors w-full h-full min-h-[64px] sm:min-h-0">
                 <Shield className="w-4 h-4 text-sage flex-shrink-0" />
@@ -171,6 +269,52 @@ function HeroSection() {
 
 // Problem Section
 function ProblemSection() {
+  const problemSlides = [
+    {
+      tone: "Professional",
+      body: [
+        "Many homes contain furniture with sharp corners such as tables, cabinets, and countertops. These edges can pose a safety risk, especially for toddlers who are learning to walk or play around the house.",
+        "Without proper protection, even a small accident can result in painful injuries.",
+      ],
+    },
+    {
+      tone: "Emotional",
+      body: [
+        "Children love to explore every part of the home. But while they run, play, and learn to walk, a simple table corner can suddenly turn a happy moment into a painful one.",
+        "For parents, even a small bump can bring worry and stress.",
+      ],
+    },
+    {
+      tone: "Trust",
+      body: [
+        "Sharp furniture edges are one of the most common causes of minor home injuries. Parents often rely on constant supervision, but accidents can still happen.",
+        "Without proper protection, these everyday corners can become unexpected hazards.",
+      ],
+    },
+  ]
+
+  const [problemSlide, setProblemSlide] = useState(0)
+  const [problemTouchStart, setProblemTouchStart] = useState<number | null>(null)
+
+  const problemNext = () => setProblemSlide((prev) => (prev + 1) % problemSlides.length)
+  const problemPrev = () => setProblemSlide((prev) => (prev - 1 + problemSlides.length) % problemSlides.length)
+
+  const handleProblemTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+    setProblemTouchStart(e.touches[0].clientX)
+  }
+
+  const handleProblemTouchEnd = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (problemTouchStart === null) return
+    const deltaX = e.changedTouches[0].clientX - problemTouchStart
+    const threshold = 40
+    if (deltaX > threshold) {
+      problemPrev()
+    } else if (deltaX < -threshold) {
+      problemNext()
+    }
+    setProblemTouchStart(null)
+  }
+
   return (
     <section className="py-16 md:py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -193,12 +337,67 @@ function ProblemSection() {
             <h2 className="text-3xl md:text-4xl font-semibold text-foreground leading-tight text-balance">
               Your Little One&apos;s World of Discovery
             </h2>
-            <p className="mt-6 text-lg text-muted-foreground leading-relaxed">
-              As your toddler begins to explore, every corner of your home becomes part of their adventure. Coffee tables, shelves, and furniture edges that once seemed harmless now present potential bumps and bruises.
-            </p>
-            <p className="mt-4 text-lg text-muted-foreground leading-relaxed">
-              We understand this journey. That&apos;s why we created a solution that lets your child explore freely while you enjoy peace of mind—without compromising on the warmth and beauty of your home.
-            </p>
+
+            <div
+              className="mt-6 overflow-hidden"
+              onTouchStart={handleProblemTouchStart}
+              onTouchEnd={handleProblemTouchEnd}
+            >
+              <div
+                className="flex transition-transform duration-500 ease-out"
+                style={{ transform: `translateX(-${problemSlide * 100}%)` }}
+              >
+                {problemSlides.map((slide) => (
+                  <div key={slide.tone} className="w-full flex-shrink-0">
+                    {slide.body.map((paragraph, idx) => (
+                      <p
+                        key={idx}
+                        className={`text-lg text-muted-foreground leading-relaxed ${idx === 0 ? "mb-4" : ""}`}
+                      >
+                        {paragraph}
+                      </p>
+                    ))}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="mt-6 flex items-center gap-4">
+              <button
+                type="button"
+                onClick={problemPrev}
+                className="px-3 py-1 text-sm rounded-full border border-border bg-white hover:bg-cream-dark transition-colors"
+                aria-label="Previous problem slide"
+              >
+                ←
+              </button>
+              <div className="flex flex-wrap gap-2">
+                {["Professional", "Emotional", "Trust"].map((label, index) => (
+                  <button
+                    key={label}
+                    type="button"
+                    onClick={() => setProblemSlide(index)}
+                    className={`px-3 py-1 text-xs rounded-full border transition-colors ${
+                      problemSlide === index
+                        ? "bg-sage text-sage-dark border-sage"
+                        : "bg-white text-muted-foreground border-border hover:bg-cream-dark"
+                    }`}
+                    aria-label={`${label} problem slide`}
+                  >
+                    {label}
+                  </button>
+                ))}
+              </div>
+              <button
+                type="button"
+                onClick={problemNext}
+                className="px-3 py-1 text-sm rounded-full border border-border bg-white hover:bg-cream-dark transition-colors"
+                aria-label="Next problem slide"
+              >
+                →
+              </button>
+            </div>
+
             <div className="mt-8 flex flex-wrap gap-4">
               <div className="flex items-center gap-2 bg-cream px-4 py-2 rounded-full">
                 <Heart className="w-4 h-4 text-terracotta" />
@@ -241,15 +440,109 @@ function SolutionSection() {
     }
   ]
 
+  const solutionSlides = [
+    {
+      tone: "Professional",
+      title: "The Kindoora Edge Protector",
+      description:
+        "Edge Protector offers a simple and effective way to reduce the risk of furniture-related injuries. By covering sharp corners with soft cushioning material, it helps create a safer environment for children and families.",
+    },
+    {
+      tone: "Emotional",
+      title: "The Kindoora Edge Protector",
+      description:
+        "Edge Protector adds a gentle layer of protection to the corners that matter most. It helps prevent painful bumps and allows children to play and explore freely while parents enjoy peace of mind.",
+    },
+    {
+      tone: "Trust",
+      title: "The Kindoora Edge Protector",
+      description:
+        "Edge Protector is designed with durable, shock-absorbing materials that safely cushion sharp furniture edges. With easy installation and reliable protection, it helps families reduce the risk of accidents at home.",
+    },
+  ]
+
+  const [solutionSlide, setSolutionSlide] = useState(0)
+  const [solutionTouchStart, setSolutionTouchStart] = useState<number | null>(null)
+
+  const solutionNext = () => setSolutionSlide((prev) => (prev + 1) % solutionSlides.length)
+  const solutionPrev = () => setSolutionSlide((prev) => (prev - 1 + solutionSlides.length) % solutionSlides.length)
+
+  const handleSolutionTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+    setSolutionTouchStart(e.touches[0].clientX)
+  }
+
+  const handleSolutionTouchEnd = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (solutionTouchStart === null) return
+    const deltaX = e.changedTouches[0].clientX - solutionTouchStart
+    const threshold = 40
+    if (deltaX > threshold) {
+      solutionPrev()
+    } else if (deltaX < -threshold) {
+      solutionNext()
+    }
+    setSolutionTouchStart(null)
+  }
+
   return (
     <section id="solution" className="py-16 md:py-24 bg-cream">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-3xl md:text-4xl font-semibold text-foreground text-center mb-4 text-balance">
-          The Kindoora Edge Protector
-        </h2>
-        <p className="text-center text-muted-foreground text-lg mb-12 max-w-2xl mx-auto">
-          Premium corner protection designed with your family&apos;s safety in mind
-        </p>
+        <div
+          className="max-w-3xl mx-auto text-center overflow-hidden"
+          onTouchStart={handleSolutionTouchStart}
+          onTouchEnd={handleSolutionTouchEnd}
+        >
+          <div
+            className="flex transition-transform duration-500 ease-out"
+            style={{ transform: `translateX(-${solutionSlide * 100}%)` }}
+          >
+            {solutionSlides.map((slide) => (
+              <div key={slide.tone} className="w-full flex-shrink-0 px-2">
+                <h2 className="text-3xl md:text-4xl font-semibold text-foreground mb-4 text-balance">
+                  {slide.title}
+                </h2>
+                <p className="text-center text-muted-foreground text-lg mb-4 md:mb-6">
+                  {slide.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-4 flex items-center justify-center gap-4">
+          <button
+            type="button"
+            onClick={solutionPrev}
+            className="px-3 py-1 text-sm rounded-full border border-border bg-white hover:bg-cream-dark transition-colors"
+            aria-label="Previous solution slide"
+          >
+            ←
+          </button>
+          <div className="flex flex-wrap justify-center gap-2">
+            {["Professional", "Emotional", "Trust"].map((label, index) => (
+              <button
+                key={label}
+                type="button"
+                onClick={() => setSolutionSlide(index)}
+                className={`px-3 py-1 text-xs rounded-full border transition-colors ${
+                  solutionSlide === index
+                    ? "bg-sage text-sage-dark border-sage"
+                    : "bg-white text-muted-foreground border-border hover:bg-cream-dark"
+                }`}
+                aria-label={`${label} solution slide`}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+          <button
+            type="button"
+            onClick={solutionNext}
+            className="px-3 py-1 text-sm rounded-full border border-border bg-white hover:bg-cream-dark transition-colors"
+            aria-label="Next solution slide"
+          >
+            →
+          </button>
+        </div>
 
         {/* Product Image */}
         <div className="flex justify-center mb-16">
@@ -295,23 +588,97 @@ function SolutionSection() {
 
 // Benefits Section
 function BenefitsSection() {
-  const benefits = [
+  const benefitSlides = [
     {
-      icon: Heart,
-      title: "Peace of Mind",
-      description: "Rest easy knowing your home is prepared for your little explorer's adventures."
+      tone: "Professional",
+      sectionTitle: "Why Choose Kindoora",
+      sectionDescription:
+        "Reliable edge protection designed to make your home safer without affecting your furniture’s appearance.",
+      items: [
+        {
+          icon: Heart,
+          title: "Enhanced Safety",
+          description: "Kindoora edge protectors help reduce the risk of bumps and injuries caused by sharp furniture edges.",
+        },
+        {
+          icon: Home,
+          title: "Seamless Design",
+          description: "The transparent, low-profile design blends smoothly with your furniture without affecting your home décor.",
+        },
+        {
+          icon: Award,
+          title: "Durable Protection",
+          description: "Made from high-quality silicone that absorbs impact and provides reliable, long-lasting protection.",
+        },
+      ],
     },
     {
-      icon: Home,
-      title: "Blends with Furniture",
-      description: "Designed to complement your home décor without standing out or looking clinical."
+      tone: "Emotional",
+      sectionTitle: "Why Parents Love Kindoora",
+      sectionDescription: "Create a safer home where your little ones can explore freely.",
+      items: [
+        {
+          icon: Heart,
+          title: "Peace of Mind",
+          description: "Let your child crawl, walk, and explore while Kindoora cushions sharp furniture edges.",
+        },
+        {
+          icon: Home,
+          title: "Blends with Your Home",
+          description: "The transparent design protects your child while keeping your furniture stylish.",
+        },
+        {
+          icon: Award,
+          title: "Soft Yet Strong Protection",
+          description: "Flexible silicone gently absorbs impact during everyday play.",
+        },
+      ],
     },
     {
-      icon: Award,
-      title: "Durable Protection",
-      description: "Built to last through years of use while maintaining its protective qualities."
-    }
+      tone: "Trust",
+      sectionTitle: "Safe Protection Families Trust",
+      sectionDescription: "Designed to help parents create a safer home environment with reliable materials.",
+      items: [
+        {
+          icon: Heart,
+          title: "Reliable Safety",
+          description: "Kindoora edge protectors help reduce the risk of injuries caused by sharp furniture edges.",
+        },
+        {
+          icon: Home,
+          title: "Discreet Design",
+          description: "The clear, low-profile design blends naturally with your furniture.",
+        },
+        {
+          icon: Award,
+          title: "Durable Materials",
+          description: "High-quality silicone absorbs impact and stays securely in place.",
+        },
+      ],
+    },
   ]
+
+  const [benefitsSlide, setBenefitsSlide] = useState(0)
+  const [benefitsTouchStart, setBenefitsTouchStart] = useState<number | null>(null)
+
+  const benefitsNext = () => setBenefitsSlide((prev) => (prev + 1) % benefitSlides.length)
+  const benefitsPrev = () => setBenefitsSlide((prev) => (prev - 1 + benefitSlides.length) % benefitSlides.length)
+
+  const handleBenefitsTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+    setBenefitsTouchStart(e.touches[0].clientX)
+  }
+
+  const handleBenefitsTouchEnd = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (benefitsTouchStart === null) return
+    const deltaX = e.changedTouches[0].clientX - benefitsTouchStart
+    const threshold = 40
+    if (deltaX > threshold) {
+      benefitsPrev()
+    } else if (deltaX < -threshold) {
+      benefitsNext()
+    }
+    setBenefitsTouchStart(null)
+  }
 
   return (
     <section id="benefits" className="py-16 md:py-24 bg-sage/5">
@@ -320,27 +687,92 @@ function BenefitsSection() {
           <span className="inline-block px-4 py-1.5 bg-white text-sage-dark rounded-full text-sm font-medium mb-4">
             Benefits
           </span>
-          <h2 className="text-3xl md:text-4xl font-semibold text-foreground text-balance">
-            Why Parents Love Kindoora
-          </h2>
-          <p className="mt-6 text-lg text-muted-foreground leading-relaxed">
-            More than just protection—it&apos;s about creating a nurturing environment where your family can thrive.
-          </p>
+
+          <div
+            className="overflow-hidden"
+            onTouchStart={handleBenefitsTouchStart}
+            onTouchEnd={handleBenefitsTouchEnd}
+          >
+            <div
+              className="flex transition-transform duration-500 ease-out"
+              style={{ transform: `translateX(-${benefitsSlide * 100}%)` }}
+            >
+              {benefitSlides.map((slide) => (
+                <div key={slide.tone} className="w-full flex-shrink-0 px-2">
+                  <h2 className="text-3xl md:text-4xl font-semibold text-foreground text-balance">
+                    {slide.sectionTitle}
+                  </h2>
+                  <p className="mt-6 text-lg text-muted-foreground leading-relaxed">
+                    {slide.sectionDescription}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="mt-6 flex items-center justify-center gap-4">
+            <button
+              type="button"
+              onClick={benefitsPrev}
+              className="px-3 py-1 text-sm rounded-full border border-border bg-white hover:bg-cream-dark transition-colors"
+              aria-label="Previous benefits slide"
+            >
+              ←
+            </button>
+            <div className="flex flex-wrap justify-center gap-2">
+              {["Professional", "Emotional", "Trust"].map((label, index) => (
+                <button
+                  key={label}
+                  type="button"
+                  onClick={() => setBenefitsSlide(index)}
+                  className={`px-3 py-1 text-xs rounded-full border transition-colors ${
+                    benefitsSlide === index
+                      ? "bg-sage text-sage-dark border-sage"
+                      : "bg-white text-muted-foreground border-border hover:bg-cream-dark"
+                  }`}
+                  aria-label={`${label} benefits slide`}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
+            <button
+              type="button"
+              onClick={benefitsNext}
+              className="px-3 py-1 text-sm rounded-full border border-border bg-white hover:bg-cream-dark transition-colors"
+              aria-label="Next benefits slide"
+            >
+              →
+            </button>
+          </div>
         </div>
 
-        <div className="mt-16 grid md:grid-cols-3 gap-8">
-          {benefits.map((benefit, index) => (
+        <div className="mt-16">
+          <div className="overflow-hidden">
             <div
-              key={index}
-              className="bg-white rounded-2xl p-8 text-center shadow-sm hover:shadow-md transition-shadow"
+              className="flex transition-transform duration-500 ease-out"
+              style={{ transform: `translateX(-${benefitsSlide * 100}%)` }}
             >
-              <div className="w-16 h-16 bg-terracotta/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                <benefit.icon className="w-8 h-8 text-terracotta" />
-              </div>
-              <h3 className="text-xl font-semibold text-foreground mb-3">{benefit.title}</h3>
-              <p className="text-muted-foreground leading-relaxed">{benefit.description}</p>
+              {benefitSlides.map((slide) => (
+                <div key={slide.tone} className="w-full flex-shrink-0">
+                  <div className="grid md:grid-cols-3 gap-8">
+                    {slide.items.map((benefit, index) => (
+                      <div
+                        key={index}
+                        className="bg-white rounded-2xl p-8 text-center shadow-sm hover:shadow-md transition-shadow"
+                      >
+                        <div className="w-16 h-16 bg-terracotta/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                          <benefit.icon className="w-8 h-8 text-terracotta" />
+                        </div>
+                        <h3 className="text-xl font-semibold text-foreground mb-3">{benefit.title}</h3>
+                        <p className="text-muted-foreground leading-relaxed">{benefit.description}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
             </div>
-          ))}
+          </div>
         </div>
       </div>
     </section>
@@ -349,12 +781,73 @@ function BenefitsSection() {
 
 // Why Choose Section
 function WhyChooseSection() {
-  const reasons = [
-    { icon: Award, text: "Premium Quality" },
-    { icon: Shield, text: "Child-Safe Materials" },
-    { icon: Zap, text: "Easy Installation" },
-    { icon: Package, text: "Premium Packaging" }
+  const whySlides = [
+    {
+      tone: "Professional",
+      title: "Designed for Safe and Modern Homes",
+      description: "Practical safety solutions built with quality materials and easy installation.",
+      body: "At Kindoora, we focus on creating simple and effective home safety products that help families protect their living spaces quickly and efficiently.",
+      bullets: [
+        "✔ Premium Quality Silicone",
+        "✔ Child-Safe Materials",
+        "✔ Strong and Reliable Adhesive",
+        "✔ Quick and Easy Installation",
+      ],
+    },
+    {
+      tone: "Emotional",
+      title: "Made for Families Who Care",
+      description: "Simple protection designed to keep your home safe and comfortable.",
+      body: "At Kindoora, we believe every child deserves a safe place to explore and grow.",
+      bullets: [
+        "✔ Designed with families in mind",
+        "✔ Gentle protection for curious toddlers",
+        "✔ Quick setup for busy parents",
+        "✔ Safety without changing your home’s style",
+      ],
+    },
+    {
+      tone: "Trust",
+      title: "A Brand Parents Can Depend On",
+      description: "Focused on safety, quality, and dependable protection for families.",
+      body: "At Kindoora, every product is designed with durable, child-safe materials to ensure reliable protection for everyday family life.",
+      bullets: [
+        "✔ Premium Quality Silicone",
+        "✔ Child-Safe Materials",
+        "✔ Strong Adhesive Hold",
+        "✔ Easy Installation in Minutes",
+      ],
+    },
   ]
+
+  const reasons = [
+    { icon: Award, key: "Premium Quality" },
+    { icon: Shield, key: "Child-Safe Materials" },
+    { icon: Zap, key: "Easy Installation" },
+    { icon: Package, key: "Premium Packaging" }
+  ]
+
+  const [whySlide, setWhySlide] = useState(0)
+  const [whyTouchStart, setWhyTouchStart] = useState<number | null>(null)
+
+  const whyNext = () => setWhySlide((prev) => (prev + 1) % whySlides.length)
+  const whyPrev = () => setWhySlide((prev) => (prev - 1 + whySlides.length) % whySlides.length)
+
+  const handleWhyTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+    setWhyTouchStart(e.touches[0].clientX)
+  }
+
+  const handleWhyTouchEnd = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (whyTouchStart === null) return
+    const deltaX = e.changedTouches[0].clientX - whyTouchStart
+    const threshold = 40
+    if (deltaX > threshold) {
+      whyPrev()
+    } else if (deltaX < -threshold) {
+      whyNext()
+    }
+    setWhyTouchStart(null)
+  }
 
   return (
     <section className="py-16 md:py-24 bg-white">
@@ -375,12 +868,72 @@ function WhyChooseSection() {
             <span className="inline-block px-4 py-1.5 bg-sage/10 text-sage-dark rounded-full text-sm font-medium mb-4">
               Why Kindoora
             </span>
-            <h2 className="text-3xl md:text-5xl font-semibold text-foreground leading-tight text-balance">
-              Trusted by Thousands of Caring Parents
-            </h2>
-            <p className="mt-6 text-lg md:text-xl text-muted-foreground leading-relaxed">
-              We believe every child deserves to explore safely, and every parent deserves peace of mind. That&apos;s why we&apos;ve crafted our products with the utmost care and attention to detail.
-            </p>
+
+            <div
+              className="overflow-hidden"
+              onTouchStart={handleWhyTouchStart}
+              onTouchEnd={handleWhyTouchEnd}
+            >
+              <div
+                className="flex transition-transform duration-500 ease-out"
+                style={{ transform: `translateX(-${whySlide * 100}%)` }}
+              >
+                {whySlides.map((slide) => (
+                  <div key={slide.tone} className="w-full flex-shrink-0 px-2">
+                    <h2 className="text-3xl md:text-5xl font-semibold text-foreground leading-tight text-balance">
+                      {slide.title}
+                    </h2>
+                    <p className="mt-4 text-lg md:text-xl text-muted-foreground leading-relaxed">
+                      {slide.description}
+                    </p>
+                    <p className="mt-4 text-lg text-muted-foreground leading-relaxed">
+                      {slide.body}
+                    </p>
+                    <div className="mt-6 space-y-1 text-sm md:text-base text-muted-foreground">
+                      {slide.bullets.map((bullet) => (
+                        <div key={bullet}>{bullet}</div>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="mt-6 flex items-center justify-center gap-4">
+              <button
+                type="button"
+                onClick={whyPrev}
+                className="px-3 py-1 text-sm rounded-full border border-border bg-white hover:bg-cream-dark transition-colors"
+                aria-label="Previous why choose slide"
+              >
+                ←
+              </button>
+              <div className="flex flex-wrap justify-center gap-2">
+                {["Professional", "Emotional", "Trust"].map((label, index) => (
+                  <button
+                    key={label}
+                    type="button"
+                    onClick={() => setWhySlide(index)}
+                    className={`px-3 py-1 text-xs rounded-full border transition-colors ${
+                      whySlide === index
+                        ? "bg-sage text-sage-dark border-sage"
+                        : "bg-white text-muted-foreground border-border hover:bg-cream-dark"
+                    }`}
+                    aria-label={`${label} why choose slide`}
+                  >
+                    {label}
+                  </button>
+                ))}
+              </div>
+              <button
+                type="button"
+                onClick={whyNext}
+                className="px-3 py-1 text-sm rounded-full border border-border bg-white hover:bg-cream-dark transition-colors"
+                aria-label="Next why choose slide"
+              >
+                →
+              </button>
+            </div>
 
             <div className="mt-10 grid grid-cols-2 lg:grid-cols-4 gap-4 w-full">
               {reasons.map((reason, index) => (
@@ -389,7 +942,7 @@ function WhyChooseSection() {
                   className="flex items-center justify-center gap-3 bg-cream rounded-xl px-4 py-4 border border-sage/10 hover:border-sage/30 transition-colors"
                 >
                   <reason.icon className="w-5 h-5 text-sage flex-shrink-0" />
-                  <span className="text-sm font-medium text-foreground whitespace-nowrap">{reason.text}</span>
+                  <span className="text-sm font-medium text-foreground whitespace-nowrap">{reason.key}</span>
                 </div>
               ))}
             </div>
@@ -501,28 +1054,111 @@ function SocialProofSection() {
 
 // How It Works Section
 function HowItWorksSection() {
-  const steps = [
+  const howSlides = [
     {
-      number: "01",
-      title: "Clean the Surface",
-      description: "Wipe the furniture edge with a clean, dry cloth to remove dust and debris."
+      tone: "Professional",
+      title: "Simple Installation in Minutes",
+      subtitle: "No tools required. Just peel, stick, and secure your furniture edges.",
+      steps: [
+        {
+          number: "01",
+          title: "Clean the Surface",
+          description: "Wipe the furniture edge to remove dust and ensure proper adhesion.",
+        },
+        {
+          number: "02",
+          title: "Peel the Adhesive Film",
+          description: "Remove the protective backing from the edge protector.",
+        },
+        {
+          number: "03",
+          title: "Align and Press Firmly",
+          description: "Position the protector along the edge and press for about 30 seconds.",
+        },
+        {
+          number: "04",
+          title: "Secure Protection",
+          description: "Your furniture edges are now cushioned and protected for everyday use.",
+        },
+      ],
     },
     {
-      number: "02",
-      title: "Peel Off the Protective Film",
-      description: "Carefully remove the backing to expose the adhesive strip."
+      tone: "Emotional",
+      title: "Make Your Home Safer in Minutes",
+      subtitle: "A quick and simple way to protect your furniture and your child.",
+      steps: [
+        {
+          number: "01",
+          title: "Clean the Surface",
+          description: "A quick wipe helps the protector stick perfectly.",
+        },
+        {
+          number: "02",
+          title: "Peel the Backing",
+          description: "Remove the film to reveal the adhesive strip.",
+        },
+        {
+          number: "03",
+          title: "Stick and Press",
+          description: "Align the protector and press firmly.",
+        },
+        {
+          number: "04",
+          title: "Enjoy Peace of Mind",
+          description: "Your home is now safer for curious little explorers.",
+        },
+      ],
     },
     {
-      number: "03",
-      title: "Align and Press Firmly",
-      description: "Position the protector along the edge and press firmly for 30 seconds."
+      tone: "Trust",
+      title: "A Simple and Reliable Process",
+      subtitle: "Install protection quickly with a method designed for dependable results.",
+      steps: [
+        {
+          number: "01",
+          title: "Clean the Surface",
+          description: "Remove dust and dirt to ensure strong adhesion.",
+        },
+        {
+          number: "02",
+          title: "Peel the Protective Film",
+          description: "Expose the adhesive backing.",
+        },
+        {
+          number: "03",
+          title: "Apply and Press",
+          description: "Align the protector and press firmly.",
+        },
+        {
+          number: "04",
+          title: "Safe and Secure",
+          description: "Your furniture edges are now cushioned to help protect toddlers and pets.",
+        },
+      ],
     },
-    {
-      number: "04",
-      title: "Safe and Secure",
-      description: "Your furniture is now baby-proofed and ready for safe exploration."
-    }
   ]
+
+  const [howSlide, setHowSlide] = useState(0)
+  const [howTouchStart, setHowTouchStart] = useState<number | null>(null)
+
+  const howNext = () => setHowSlide((prev) => (prev + 1) % howSlides.length)
+  const howPrev = () => setHowSlide((prev) => (prev - 1 + howSlides.length) % howSlides.length)
+
+  const handleHowTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+    setHowTouchStart(e.touches[0].clientX)
+  }
+
+  const handleHowTouchEnd = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (howTouchStart === null) return
+    const deltaX = e.changedTouches[0].clientX - howTouchStart
+    const threshold = 40
+    if (deltaX > threshold) {
+      howPrev()
+    } else if (deltaX < -threshold) {
+      howNext()
+    }
+    setHowTouchStart(null)
+  }
 
   return (
     <section id="how-it-works" className="py-16 md:py-24 bg-white">
@@ -531,12 +1167,64 @@ function HowItWorksSection() {
           <span className="inline-block px-4 py-1.5 bg-sage/10 text-sage-dark rounded-full text-sm font-medium mb-4">
             How It Works
           </span>
-          <h2 className="text-3xl md:text-4xl font-semibold text-foreground text-balance">
-            Simple Installation in Minutes
-          </h2>
-          <p className="mt-6 text-lg text-muted-foreground leading-relaxed">
-            No tools required. Just peel, stick, and enjoy peace of mind.
-          </p>
+
+          <div
+            className="overflow-hidden"
+            onTouchStart={handleHowTouchStart}
+            onTouchEnd={handleHowTouchEnd}
+          >
+            <div
+              className="flex transition-transform duration-500 ease-out"
+              style={{ transform: `translateX(-${howSlide * 100}%)` }}
+            >
+              {howSlides.map((slide) => (
+                <div key={slide.tone} className="w-full flex-shrink-0 px-2">
+                  <h2 className="text-3xl md:text-4xl font-semibold text-foreground text-balance">
+                    {slide.title}
+                  </h2>
+                  <p className="mt-6 text-lg text-muted-foreground leading-relaxed">
+                    {slide.subtitle}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="mt-6 flex items-center justify-center gap-4">
+            <button
+              type="button"
+              onClick={howPrev}
+              className="px-3 py-1 text-sm rounded-full border border-border bg-white hover:bg-cream-dark transition-colors"
+              aria-label="Previous how it works slide"
+            >
+              ←
+            </button>
+            <div className="flex flex-wrap justify-center gap-2">
+              {["Professional", "Emotional", "Trust"].map((label, index) => (
+                <button
+                  key={label}
+                  type="button"
+                  onClick={() => setHowSlide(index)}
+                  className={`px-3 py-1 text-xs rounded-full border transition-colors ${
+                    howSlide === index
+                      ? "bg-sage text-sage-dark border-sage"
+                      : "bg-white text-muted-foreground border-border hover:bg-cream-dark"
+                  }`}
+                  aria-label={`${label} how it works slide`}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
+            <button
+              type="button"
+              onClick={howNext}
+              className="px-3 py-1 text-sm rounded-full border border-border bg-white hover:bg-cream-dark transition-colors"
+              aria-label="Next how it works slide"
+            >
+              →
+            </button>
+          </div>
         </div>
 
         <div className="mt-16 grid lg:grid-cols-2 gap-12 items-center">
@@ -551,13 +1239,24 @@ function HowItWorksSection() {
           </div>
 
           <div className="grid sm:grid-cols-2 gap-6">
-            {steps.map((step, index) => (
-              <div key={index} className="bg-cream rounded-2xl p-6 md:p-8">
-                <div className="text-4xl font-bold text-sage/20 mb-4">{step.number}</div>
-                <h3 className="text-lg font-semibold text-foreground mb-2">{step.title}</h3>
-                <p className="text-muted-foreground leading-relaxed">{step.description}</p>
+            <div className="sm:col-span-2 overflow-hidden">
+              <div
+                className="flex transition-transform duration-500 ease-out"
+                style={{ transform: `translateX(-${howSlide * 100}%)` }}
+              >
+                {howSlides.map((slide) => (
+                  <div key={slide.tone} className="w-full flex-shrink-0 grid sm:grid-cols-2 gap-6">
+                    {slide.steps.map((step, index) => (
+                      <div key={index} className="bg-cream rounded-2xl p-6 md:p-8">
+                        <div className="text-4xl font-bold text-sage/20 mb-4">{step.number}</div>
+                        <h3 className="text-lg font-semibold text-foreground mb-2">{step.title}</h3>
+                        <p className="text-muted-foreground leading-relaxed">{step.description}</p>
+                      </div>
+                    ))}
+                  </div>
+                ))}
               </div>
-            ))}
+            </div>
           </div>
         </div>
       </div>
