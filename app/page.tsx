@@ -151,9 +151,9 @@ function HeroSection() {
   }
 
   return (
-    <section id="home" className="pt-32 md:pt-48 pb-16 md:pb-24 bg-cream">
+    <section id="home" className="pt-32 md:pt-48 pb-20 md:pb-32 bg-cream">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid md:grid-cols-2 gap-12 items-center">
+        <div className="grid md:grid-cols-2 gap-16 items-center">
           <div className="order-2 md:order-1">
             <div
               className="overflow-hidden"
@@ -316,9 +316,9 @@ function ProblemSection() {
   }
 
   return (
-    <section className="py-16 md:py-24 bg-white">
+    <section className="py-20 md:py-32 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid md:grid-cols-2 gap-12 items-center">
+        <div className="grid md:grid-cols-2 gap-16 items-center">
           <div className="relative">
             <div className="rounded-3xl overflow-hidden shadow-lg">
               <Image
@@ -484,7 +484,7 @@ function SolutionSection() {
   }
 
   return (
-    <section id="solution" className="py-16 md:py-24 bg-cream">
+    <section id="solution" className="py-20 md:py-32 bg-cream">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div
           className="max-w-3xl mx-auto text-center overflow-hidden"
@@ -545,7 +545,7 @@ function SolutionSection() {
         </div>
 
         {/* Product Image */}
-        <div className="flex justify-center mb-16">
+        <div className="flex justify-center mb-20">
           <div className="relative w-full max-w-md">
             <div className="absolute inset-0 bg-sage/10 rounded-3xl transform -rotate-2"></div>
             <div className="relative bg-white rounded-3xl p-8 shadow-lg">
@@ -560,7 +560,7 @@ function SolutionSection() {
           </div>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {features.map((feature, idx) => {
             const Icon = feature.icon
             return (
@@ -681,7 +681,7 @@ function BenefitsSection() {
   }
 
   return (
-    <section id="benefits" className="py-16 md:py-24 bg-sage/5">
+    <section id="benefits" className="py-20 md:py-32 bg-sage/5">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto">
           <span className="inline-block px-4 py-1.5 bg-white text-sage-dark rounded-full text-sm font-medium mb-4">
@@ -747,7 +747,7 @@ function BenefitsSection() {
           </div>
         </div>
 
-        <div className="mt-16">
+        <div className="mt-20">
           <div className="overflow-hidden">
             <div
               className="flex transition-transform duration-500 ease-out"
@@ -755,7 +755,7 @@ function BenefitsSection() {
             >
               {benefitSlides.map((slide) => (
                 <div key={slide.tone} className="w-full flex-shrink-0">
-                  <div className="grid md:grid-cols-3 gap-8">
+                  <div className="grid md:grid-cols-3 gap-6">
                     {slide.items.map((benefit, index) => (
                       <div
                         key={index}
@@ -850,9 +850,9 @@ function WhyChooseSection() {
   }
 
   return (
-    <section className="py-16 md:py-24 bg-white">
+    <section className="py-20 md:py-32 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col items-center gap-12">
+        <div className="flex flex-col items-center gap-16">
           {/* Image - Now at the top for all screen sizes */}
           <div className="relative w-full max-w-4xl mx-auto shadow-2xl rounded-3xl overflow-hidden ring-1 ring-black/5">
             <Image
@@ -935,7 +935,7 @@ function WhyChooseSection() {
               </button>
             </div>
 
-            <div className="mt-10 grid grid-cols-2 lg:grid-cols-4 gap-4 w-full">
+            <div className="mt-12 grid grid-cols-2 lg:grid-cols-4 gap-6 w-full">
               {reasons.map((reason, index) => (
                 <div
                   key={index}
@@ -987,7 +987,7 @@ function SocialProofSection() {
   }, [testimonials.length])
 
   return (
-    <section className="py-16 md:py-24 bg-cream">
+    <section className="py-20 md:py-32 bg-cream">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto">
           <span className="inline-block px-4 py-1.5 bg-sage/10 text-sage-dark rounded-full text-sm font-medium mb-4">
@@ -1002,7 +1002,7 @@ function SocialProofSection() {
         </div>
 
         {/* Testimonial Carousel */}
-        <div className="mt-16 max-w-2xl mx-auto">
+        <div className="mt-20 max-w-2xl mx-auto">
           <div className="overflow-hidden">
             <div
               className="flex transition-transform duration-500 ease-out"
@@ -1161,7 +1161,7 @@ function HowItWorksSection() {
   }
 
   return (
-    <section id="how-it-works" className="py-16 md:py-24 bg-white">
+    <section id="how-it-works" className="py-20 md:py-32 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto">
           <span className="inline-block px-4 py-1.5 bg-sage/10 text-sage-dark rounded-full text-sm font-medium mb-4">
@@ -1227,7 +1227,7 @@ function HowItWorksSection() {
           </div>
         </div>
 
-        <div className="mt-16 grid lg:grid-cols-2 gap-12 items-center">
+        <div className="mt-20 grid lg:grid-cols-2 gap-16 items-center">
           <div className="rounded-3xl overflow-hidden shadow-lg border border-border/50 bg-white">
             <Image
               src={newImage}
@@ -1304,7 +1304,7 @@ function FAQSection() {
   ]
 
   return (
-    <section id="faq" className="py-16 md:py-24 bg-cream">
+    <section id="faq" className="py-20 md:py-32 bg-cream">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center">
           <span className="inline-block px-4 py-1.5 bg-sage/10 text-sage-dark rounded-full text-sm font-medium mb-4">
@@ -1318,7 +1318,7 @@ function FAQSection() {
           </p>
         </div>
 
-        <div className="mt-12 space-y-4">
+        <div className="mt-16 space-y-4">
           {faqs.map((faq, index) => (
             <div
               key={index}
@@ -1387,9 +1387,9 @@ function ContactSection() {
   }
 
   return (
-    <section id="contact" className="py-16 md:py-24 bg-cream">
+    <section id="contact" className="py-20 md:py-32 bg-cream">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
+        <div className="text-center mb-16">
           <span className="inline-block px-4 py-1.5 bg-sage/10 text-sage-dark rounded-full text-sm font-medium mb-4">
             Get in Touch
           </span>
