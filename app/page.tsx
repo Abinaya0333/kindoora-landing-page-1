@@ -152,9 +152,9 @@ function HeroSection() {
 
   return (
     <section id="home" className="pt-32 md:pt-48 pb-20 md:pb-32 bg-cream">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="w-full">
         {/* Baby image section - centered at top */}
-        <div className="flex justify-center mb-20">
+        <div className="flex justify-center mb-20 px-4 sm:px-6 lg:px-8">
           <div className="relative w-full max-w-md">
             <div className="absolute inset-0 bg-sage/10 rounded-3xl transform rotate-3"></div>
             <div className="relative bg-white rounded-3xl overflow-hidden shadow-lg">
@@ -171,8 +171,8 @@ function HeroSection() {
         </div>
 
         {/* Center-aligned hero content */}
-        <div className="flex flex-col items-center text-center mb-20">
-          <div className="w-full max-w-2xl">
+        <div className="flex flex-col items-center text-center mb-20 px-4 sm:px-6 lg:px-8">
+          <div className="w-full max-w-2xl mx-auto">
             <div
               className="overflow-hidden"
               onTouchStart={handleHeroTouchStart}
@@ -183,11 +183,11 @@ function HeroSection() {
                 style={{ transform: `translateX(-${heroSlide * 100}%)` }}
               >
                 {heroSlides.map((slide, index) => (
-                  <div key={slide.tone} className="w-full flex-shrink-0">
-                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-foreground leading-tight text-balance">
+                  <div key={slide.tone} className="w-full flex-shrink-0 px-0">
+                    <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold text-foreground leading-tight text-balance">
                       {slide.headline}
                     </h1>
-                    <p className="mt-8 text-lg md:text-xl text-muted-foreground leading-relaxed">
+                    <p className="mt-8 text-base sm:text-lg md:text-xl text-muted-foreground leading-relaxed">
                       {slide.subheadline}
                     </p>
                     <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-6 w-full">
@@ -251,23 +251,23 @@ function HeroSection() {
         </div>
 
         {/* Feature cards grid - 2x2 responsive */}
-        <div className="max-w-4xl mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            <div className="flex items-center justify-center gap-2 bg-sage/10 px-4 py-4 rounded-2xl border border-sage/20 hover:bg-sage/15 transition-colors h-24 md:h-28">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+            <div className="flex flex-col items-center justify-center gap-2 bg-sage/10 px-3 py-4 rounded-2xl border border-sage/20 hover:bg-sage/15 transition-colors h-20 sm:h-24 md:h-28">
               <Shield className="w-5 h-5 text-sage flex-shrink-0" />
-              <span className="text-xs md:text-sm font-medium text-sage-dark text-center leading-snug">Kid Safe</span>
+              <span className="text-xs font-medium text-sage-dark text-center leading-snug">Kid Safe</span>
             </div>
-            <div className="flex items-center justify-center gap-2 bg-sage/10 px-4 py-4 rounded-2xl border border-sage/20 hover:bg-sage/15 transition-colors h-24 md:h-28">
+            <div className="flex flex-col items-center justify-center gap-2 bg-sage/10 px-3 py-4 rounded-2xl border border-sage/20 hover:bg-sage/15 transition-colors h-20 sm:h-24 md:h-28">
               <Leaf className="w-5 h-5 text-sage flex-shrink-0" />
-              <span className="text-xs md:text-sm font-medium text-sage-dark text-center leading-snug">Non-Toxic</span>
+              <span className="text-xs font-medium text-sage-dark text-center leading-snug">Non-Toxic</span>
             </div>
-            <div className="flex items-center justify-center gap-2 bg-sage/10 px-4 py-4 rounded-2xl border border-sage/20 hover:bg-sage/15 transition-colors h-24 md:h-28">
+            <div className="flex flex-col items-center justify-center gap-2 bg-sage/10 px-3 py-4 rounded-2xl border border-sage/20 hover:bg-sage/15 transition-colors h-20 sm:h-24 md:h-28">
               <Zap className="w-5 h-5 text-sage flex-shrink-0" />
-              <span className="text-xs md:text-sm font-medium text-sage-dark text-center leading-snug">Soft Protection</span>
+              <span className="text-xs font-medium text-sage-dark text-center leading-snug">Soft Protection</span>
             </div>
-            <div className="flex items-center justify-center gap-2 bg-sage/10 px-4 py-4 rounded-2xl border border-sage/20 hover:bg-sage/15 transition-colors h-24 md:h-28">
+            <div className="flex flex-col items-center justify-center gap-2 bg-sage/10 px-3 py-4 rounded-2xl border border-sage/20 hover:bg-sage/15 transition-colors h-20 sm:h-24 md:h-28">
               <Award className="w-5 h-5 text-sage flex-shrink-0" />
-              <span className="text-xs md:text-sm font-medium text-sage-dark text-center leading-snug">Rounded Edge Safety</span>
+              <span className="text-xs font-medium text-sage-dark text-center leading-snug">Rounded Edge Safety</span>
             </div>
           </div>
         </div>
