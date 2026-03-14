@@ -851,20 +851,21 @@ function WhyChooseSection() {
 
   return (
     <section className="py-16 md:py-24 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col items-center gap-12">
-          {/* Image - Now at the top for all screen sizes */}
-          <div className="relative w-full max-w-4xl mx-auto shadow-2xl rounded-3xl overflow-hidden ring-1 ring-black/5">
+      <div className="max-w-7xl mx-auto px-6 md:px-8 lg:px-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 items-center gap-12">
+          {/* Image - Left side on desktop, top on mobile */}
+          <div className="order-2 lg:order-1 relative w-full shadow-2xl rounded-3xl overflow-hidden ring-1 ring-black/5">
             <Image
               src="/images/trusted-parents.jpg"
               alt="Caring parents with their baby in a safe home"
               width={1200}
               height={600}
-              className="w-full h-auto object-cover max-h-[500px]"
+              className="w-full h-auto object-cover"
             />
           </div>
 
-          <div className="max-w-3xl text-center">
+          {/* Content - Right side on desktop, bottom on mobile */}
+          <div className="order-1 lg:order-2">
             <span className="inline-block px-4 py-1.5 bg-sage/10 text-sage-dark rounded-full text-sm font-medium mb-4">
               Why Kindoora
             </span>
@@ -880,10 +881,10 @@ function WhyChooseSection() {
               >
                 {whySlides.map((slide) => (
                   <div key={slide.tone} className="w-full flex-shrink-0 px-2">
-                    <h2 className="text-3xl md:text-5xl font-semibold text-foreground leading-tight text-balance">
+                    <h2 className="text-3xl md:text-4xl font-semibold text-foreground leading-tight text-balance">
                       {slide.title}
                     </h2>
-                    <p className="mt-4 text-lg md:text-xl text-muted-foreground leading-relaxed">
+                    <p className="mt-4 text-lg text-muted-foreground leading-relaxed">
                       {slide.description}
                     </p>
                     <p className="mt-4 text-lg text-muted-foreground leading-relaxed">
@@ -899,7 +900,7 @@ function WhyChooseSection() {
               </div>
             </div>
 
-            <div className="mt-6 flex items-center justify-center gap-4">
+            <div className="mt-6 flex flex-wrap items-center gap-4">
               <button
                 type="button"
                 onClick={whyPrev}
@@ -908,7 +909,7 @@ function WhyChooseSection() {
               >
                 ←
               </button>
-              <div className="flex flex-wrap justify-center gap-2">
+              <div className="flex flex-wrap gap-2">
                 {["Professional", "Emotional", "Trust"].map((label, index) => (
                   <button
                     key={label}
@@ -935,7 +936,7 @@ function WhyChooseSection() {
               </button>
             </div>
 
-            <div className="mt-10 grid grid-cols-2 lg:grid-cols-4 gap-4 w-full">
+            <div className="mt-10 grid grid-cols-2 gap-3">
               {reasons.map((reason, index) => (
                 <div
                   key={index}
