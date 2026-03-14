@@ -151,10 +151,12 @@ function HeroSection() {
   }
 
   return (
-    <section id="home" className="pt-32 md:pt-48 pb-16 md:pb-24 bg-cream">
+    <section id="home" className="pt-20 md:pt-40 pb-12 md:pb-24 bg-cream">
       <div className="max-w-7xl mx-auto px-6 md:px-8 lg:px-10">
-        <div className="grid md:grid-cols-2 gap-12 items-center">
-          <div className="order-2 md:order-1">
+        {/* Mobile: Text first, Desktop: 2-column layout */}
+        <div className="flex flex-col md:grid md:grid-cols-2 gap-8 md:gap-12 items-center">
+          {/* Text Content - First on mobile, left on desktop */}
+          <div className="w-full md:order-1">
             <div
               className="overflow-hidden"
               onTouchStart={handleHeroTouchStart}
@@ -166,22 +168,22 @@ function HeroSection() {
               >
                 {heroSlides.map((slide, index) => (
                   <div key={slide.tone} className="w-full flex-shrink-0">
-                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-foreground leading-tight text-balance">
+                    <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold text-foreground leading-tight text-balance">
                       {slide.headline}
                     </h1>
-                    <p className="mt-6 text-lg md:text-xl text-muted-foreground leading-relaxed max-w-lg">
+                    <p className="mt-4 sm:mt-6 text-base sm:text-lg md:text-xl text-muted-foreground leading-relaxed">
                       {slide.subheadline}
                     </p>
-                    <div className="mt-8 flex flex-col sm:flex-row items-center md:items-start justify-center md:justify-start gap-4">
+                    <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row gap-3 sm:gap-4">
                       <a
                         href="#contact"
-                        className="inline-flex items-center justify-center px-8 py-3.5 bg-terracotta text-white font-medium rounded-full hover:bg-terracotta-dark transition-colors text-lg"
+                        className="inline-flex items-center justify-center px-6 sm:px-8 py-2.5 sm:py-3.5 bg-terracotta text-white font-medium rounded-full hover:bg-terracotta-dark transition-colors text-base sm:text-lg"
                       >
                         {slide.cta}
                       </a>
                       <a
                         href="#how-it-works"
-                        className="inline-flex items-center justify-center px-8 py-3.5 bg-white text-foreground font-medium rounded-full border border-border hover:bg-cream-dark transition-colors text-lg"
+                        className="inline-flex items-center justify-center px-6 sm:px-8 py-2.5 sm:py-3.5 bg-white text-foreground font-medium rounded-full border border-border hover:bg-cream-dark transition-colors text-base sm:text-lg"
                       >
                         Learn More
                       </a>
@@ -191,22 +193,23 @@ function HeroSection() {
               </div>
             </div>
 
-            <div className="mt-6 flex items-center gap-4">
+            {/* Slide Navigation */}
+            <div className="mt-6 flex flex-wrap items-center justify-start gap-2 sm:gap-4">
               <button
                 type="button"
                 onClick={heroPrev}
-                className="px-3 py-1 text-sm rounded-full border border-border bg-white hover:bg-cream-dark transition-colors"
+                className="px-2 py-1 sm:px-3 text-sm rounded-full border border-border bg-white hover:bg-cream-dark transition-colors"
                 aria-label="Previous hero slide"
               >
                 ←
               </button>
-              <div className="flex gap-2">
+              <div className="flex flex-wrap gap-2">
                 {["Professional", "Emotional", "Trust"].map((label, index) => (
                   <button
                     key={label}
                     type="button"
                     onClick={() => setHeroSlide(index)}
-                    className={`px-3 py-1 text-xs rounded-full border transition-colors ${
+                    className={`px-2 sm:px-3 py-1 text-xs rounded-full border transition-colors ${
                       heroSlide === index
                         ? "bg-sage text-sage-dark border-sage"
                         : "bg-white text-muted-foreground border-border hover:bg-cream-dark"
@@ -220,34 +223,37 @@ function HeroSection() {
               <button
                 type="button"
                 onClick={heroNext}
-                className="px-3 py-1 text-sm rounded-full border border-border bg-white hover:bg-cream-dark transition-colors"
+                className="px-2 py-1 sm:px-3 text-sm rounded-full border border-border bg-white hover:bg-cream-dark transition-colors"
                 aria-label="Next hero slide"
               >
                 →
               </button>
             </div>
 
-            <div className="mt-10 grid grid-cols-2 lg:grid-cols-4 gap-4 max-w-3xl mx-auto md:mx-0">
-              <div className="flex items-center justify-center gap-2 bg-sage/10 px-3 py-3 rounded-2xl border border-sage/20 hover:bg-sage/15 transition-colors w-full h-full min-h-[64px] sm:min-h-0">
+            {/* Features Grid */}
+            <div className="mt-8 sm:mt-10 grid grid-cols-2 gap-3 sm:gap-4">
+              <div className="flex items-center justify-center gap-2 bg-sage/10 px-2 sm:px-3 py-2 sm:py-3 rounded-lg sm:rounded-2xl border border-sage/20 hover:bg-sage/15 transition-colors">
                 <Shield className="w-4 h-4 text-sage flex-shrink-0" />
-                <span className="text-sm font-medium text-sage-dark text-center leading-tight">Kid Safe</span>
+                <span className="text-xs sm:text-sm font-medium text-sage-dark text-center leading-tight">Kid Safe</span>
               </div>
-              <div className="flex items-center justify-center gap-2 bg-sage/10 px-3 py-3 rounded-2xl border border-sage/20 hover:bg-sage/15 transition-colors w-full h-full min-h-[64px] sm:min-h-0">
+              <div className="flex items-center justify-center gap-2 bg-sage/10 px-2 sm:px-3 py-2 sm:py-3 rounded-lg sm:rounded-2xl border border-sage/20 hover:bg-sage/15 transition-colors">
                 <Leaf className="w-4 h-4 text-sage flex-shrink-0" />
-                <span className="text-sm font-medium text-sage-dark text-center leading-tight">Non-Toxic</span>
+                <span className="text-xs sm:text-sm font-medium text-sage-dark text-center leading-tight">Non-Toxic</span>
               </div>
-              <div className="flex items-center justify-center gap-2 bg-sage/10 px-3 py-3 rounded-2xl border border-sage/20 hover:bg-sage/15 transition-colors w-full h-full min-h-[64px] sm:min-h-0">
+              <div className="flex items-center justify-center gap-2 bg-sage/10 px-2 sm:px-3 py-2 sm:py-3 rounded-lg sm:rounded-2xl border border-sage/20 hover:bg-sage/15 transition-colors">
                 <Zap className="w-4 h-4 text-sage flex-shrink-0" />
-                <span className="text-sm font-medium text-sage-dark text-center leading-tight">Soft Protection</span>
+                <span className="text-xs sm:text-sm font-medium text-sage-dark text-center leading-tight">Soft Protection</span>
               </div>
-              <div className="flex items-center justify-center gap-2 bg-sage/10 px-3 py-3 rounded-2xl border border-sage/20 hover:bg-sage/15 transition-colors w-full h-full min-h-[64px] sm:min-h-0">
+              <div className="flex items-center justify-center gap-2 bg-sage/10 px-2 sm:px-3 py-2 sm:py-3 rounded-lg sm:rounded-2xl border border-sage/20 hover:bg-sage/15 transition-colors">
                 <Award className="w-4 h-4 text-sage flex-shrink-0" />
-                <span className="text-sm font-medium text-sage-dark text-center leading-tight">Rounded Edge Safety</span>
+                <span className="text-xs sm:text-sm font-medium text-sage-dark text-center leading-tight">Safe Edges</span>
               </div>
             </div>
           </div>
-          <div className="order-1 md:order-2 flex justify-center">
-            <div className="relative w-full max-w-md">
+
+          {/* Hero Image - Second on mobile, right on desktop */}
+          <div className="w-full md:order-2 flex justify-center">
+            <div className="relative w-full max-w-sm">
               <div className="absolute inset-0 bg-sage/10 rounded-3xl transform rotate-3"></div>
               <div className="relative bg-white rounded-3xl overflow-hidden shadow-lg">
                 <Image
