@@ -26,7 +26,7 @@ function Navbar() {
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-cream/98 backdrop-blur-sm border-b border-border">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-6 md:px-8 lg:px-10">
         <div className="flex items-center justify-between h-28 md:h-40">
           {/* Logo - Left */}
           <a href="#home" className="flex items-center hover:opacity-80 transition-opacity flex-shrink-0">
@@ -152,7 +152,7 @@ function HeroSection() {
 
   return (
     <section id="home" className="pt-32 md:pt-48 pb-16 md:pb-24 bg-cream">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-6 md:px-8 lg:px-10">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div className="order-2 md:order-1">
             <div
@@ -317,7 +317,7 @@ function ProblemSection() {
 
   return (
     <section className="py-16 md:py-24 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-6 md:px-8 lg:px-10">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div className="relative">
             <div className="rounded-3xl overflow-hidden shadow-lg">
@@ -485,68 +485,70 @@ function SolutionSection() {
 
   return (
     <section id="solution" className="py-16 md:py-24 bg-cream">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div
-          className="max-w-3xl mx-auto text-center overflow-hidden"
-          onTouchStart={handleSolutionTouchStart}
-          onTouchEnd={handleSolutionTouchEnd}
-        >
+      <div className="max-w-7xl mx-auto px-6 md:px-8 lg:px-10">
+        <div className="text-center mb-12">
           <div
-            className="flex transition-transform duration-500 ease-out"
-            style={{ transform: `translateX(-${solutionSlide * 100}%)` }}
+            className="overflow-hidden"
+            onTouchStart={handleSolutionTouchStart}
+            onTouchEnd={handleSolutionTouchEnd}
           >
-            {solutionSlides.map((slide) => (
-              <div key={slide.tone} className="w-full flex-shrink-0 px-2">
-                <h2 className="text-3xl md:text-4xl font-semibold text-foreground mb-4 text-balance">
-                  {slide.title}
-                </h2>
-                <p className="text-center text-muted-foreground text-lg mb-4 md:mb-6">
-                  {slide.description}
-                </p>
-              </div>
-            ))}
+            <div
+              className="flex transition-transform duration-500 ease-out"
+              style={{ transform: `translateX(-${solutionSlide * 100}%)` }}
+            >
+              {solutionSlides.map((slide) => (
+                <div key={slide.tone} className="w-full flex-shrink-0">
+                  <h2 className="text-3xl md:text-4xl font-semibold text-foreground mb-4 text-balance">
+                    {slide.title}
+                  </h2>
+                  <p className="text-center text-muted-foreground text-lg">
+                    {slide.description}
+                  </p>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
 
-        <div className="mt-4 flex items-center justify-center gap-4">
-          <button
-            type="button"
-            onClick={solutionPrev}
-            className="px-3 py-1 text-sm rounded-full border border-border bg-white hover:bg-cream-dark transition-colors"
-            aria-label="Previous solution slide"
-          >
-            ←
-          </button>
-          <div className="flex flex-wrap justify-center gap-2">
-            {["Professional", "Emotional", "Trust"].map((label, index) => (
-              <button
-                key={label}
-                type="button"
-                onClick={() => setSolutionSlide(index)}
-                className={`px-3 py-1 text-xs rounded-full border transition-colors ${
-                  solutionSlide === index
-                    ? "bg-sage text-sage-dark border-sage"
-                    : "bg-white text-muted-foreground border-border hover:bg-cream-dark"
-                }`}
-                aria-label={`${label} solution slide`}
-              >
-                {label}
-              </button>
-            ))}
+          <div className="mt-6 flex flex-wrap items-center justify-center gap-4">
+            <button
+              type="button"
+              onClick={solutionPrev}
+              className="px-3 py-1 text-sm rounded-full border border-border bg-white hover:bg-cream-dark transition-colors"
+              aria-label="Previous solution slide"
+            >
+              ←
+            </button>
+            <div className="flex flex-wrap gap-2">
+              {["Professional", "Emotional", "Trust"].map((label, index) => (
+                <button
+                  key={label}
+                  type="button"
+                  onClick={() => setSolutionSlide(index)}
+                  className={`px-3 py-1 text-xs rounded-full border transition-colors ${
+                    solutionSlide === index
+                      ? "bg-sage text-sage-dark border-sage"
+                      : "bg-white text-muted-foreground border-border hover:bg-cream-dark"
+                  }`}
+                  aria-label={`${label} solution slide`}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
+            <button
+              type="button"
+              onClick={solutionNext}
+              className="px-3 py-1 text-sm rounded-full border border-border bg-white hover:bg-cream-dark transition-colors"
+              aria-label="Next solution slide"
+            >
+              →
+            </button>
           </div>
-          <button
-            type="button"
-            onClick={solutionNext}
-            className="px-3 py-1 text-sm rounded-full border border-border bg-white hover:bg-cream-dark transition-colors"
-            aria-label="Next solution slide"
-          >
-            →
-          </button>
         </div>
 
         {/* Product Image */}
         <div className="flex justify-center mb-16">
-          <div className="relative w-full max-w-md">
+          <div className="relative w-full max-w-sm">
             <div className="absolute inset-0 bg-sage/10 rounded-3xl transform -rotate-2"></div>
             <div className="relative bg-white rounded-3xl p-8 shadow-lg">
               <Image
@@ -560,7 +562,7 @@ function SolutionSection() {
           </div>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {features.map((feature, idx) => {
             const Icon = feature.icon
             return (
@@ -682,8 +684,8 @@ function BenefitsSection() {
 
   return (
     <section id="benefits" className="py-16 md:py-24 bg-sage/5">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto">
+      <div className="max-w-7xl mx-auto px-6 md:px-8 lg:px-10">
+        <div className="text-center mb-12">
           <span className="inline-block px-4 py-1.5 bg-white text-sage-dark rounded-full text-sm font-medium mb-4">
             Benefits
           </span>
@@ -698,7 +700,7 @@ function BenefitsSection() {
               style={{ transform: `translateX(-${benefitsSlide * 100}%)` }}
             >
               {benefitSlides.map((slide) => (
-                <div key={slide.tone} className="w-full flex-shrink-0 px-2">
+                <div key={slide.tone} className="w-full flex-shrink-0">
                   <h2 className="text-3xl md:text-4xl font-semibold text-foreground text-balance">
                     {slide.sectionTitle}
                   </h2>
@@ -710,7 +712,7 @@ function BenefitsSection() {
             </div>
           </div>
 
-          <div className="mt-6 flex items-center justify-center gap-4">
+          <div className="mt-6 flex flex-wrap items-center justify-center gap-4">
             <button
               type="button"
               onClick={benefitsPrev}
@@ -989,8 +991,8 @@ function SocialProofSection() {
 
   return (
     <section className="py-16 md:py-24 bg-cream">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto">
+      <div className="max-w-7xl mx-auto px-6 md:px-8 lg:px-10">
+        <div className="text-center mb-12 max-w-3xl mx-auto">
           <span className="inline-block px-4 py-1.5 bg-sage/10 text-sage-dark rounded-full text-sm font-medium mb-4">
             Testimonials
           </span>
@@ -1163,8 +1165,8 @@ function HowItWorksSection() {
 
   return (
     <section id="how-it-works" className="py-16 md:py-24 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto">
+      <div className="max-w-7xl mx-auto px-6 md:px-8 lg:px-10">
+        <div className="text-center mb-12">
           <span className="inline-block px-4 py-1.5 bg-sage/10 text-sage-dark rounded-full text-sm font-medium mb-4">
             How It Works
           </span>
@@ -1179,7 +1181,7 @@ function HowItWorksSection() {
               style={{ transform: `translateX(-${howSlide * 100}%)` }}
             >
               {howSlides.map((slide) => (
-                <div key={slide.tone} className="w-full flex-shrink-0 px-2">
+                <div key={slide.tone} className="w-full flex-shrink-0">
                   <h2 className="text-3xl md:text-4xl font-semibold text-foreground text-balance">
                     {slide.title}
                   </h2>
@@ -1191,7 +1193,7 @@ function HowItWorksSection() {
             </div>
           </div>
 
-          <div className="mt-6 flex items-center justify-center gap-4">
+          <div className="mt-6 flex flex-wrap items-center justify-center gap-4">
             <button
               type="button"
               onClick={howPrev}
@@ -1306,8 +1308,8 @@ function FAQSection() {
 
   return (
     <section id="faq" className="py-16 md:py-24 bg-cream">
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center">
+      <div className="max-w-7xl mx-auto px-6 md:px-8 lg:px-10">
+        <div className="text-center mb-12 max-w-3xl mx-auto">
           <span className="inline-block px-4 py-1.5 bg-sage/10 text-sage-dark rounded-full text-sm font-medium mb-4">
             FAQ
           </span>
@@ -1319,7 +1321,7 @@ function FAQSection() {
           </p>
         </div>
 
-        <div className="mt-12 space-y-4">
+        <div className="mt-12 space-y-4 max-w-3xl mx-auto">
           {faqs.map((faq, index) => (
             <div
               key={index}
@@ -1389,8 +1391,8 @@ function ContactSection() {
 
   return (
     <section id="contact" className="py-16 md:py-24 bg-cream">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
+      <div className="max-w-7xl mx-auto px-6 md:px-8 lg:px-10">
+        <div className="text-center mb-12 max-w-3xl mx-auto">
           <span className="inline-block px-4 py-1.5 bg-sage/10 text-sage-dark rounded-full text-sm font-medium mb-4">
             Get in Touch
           </span>
@@ -1402,7 +1404,7 @@ function ContactSection() {
           </p>
         </div>
 
-        <div className="bg-white rounded-3xl p-8 md:p-12 shadow-lg">
+        <div className="max-w-2xl mx-auto bg-white rounded-3xl p-8 md:p-12 shadow-lg">
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="grid md:grid-cols-2 gap-6">
               <div>
@@ -1558,7 +1560,7 @@ function Footer() {
       {/* Subtle gradient overlay to match landing page feel */}
       <div className="absolute inset-0 bg-gradient-to-br from-[#3D3D3D] via-[#2F2F2F] to-[#3D3D3D] pointer-events-none" />
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-8 md:pt-20 md:pb-10">
+      <div className="relative max-w-7xl mx-auto px-6 md:px-8 lg:px-10 pt-16 pb-8 md:pt-20 md:pb-10">
         {/* 4-Column Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
 
