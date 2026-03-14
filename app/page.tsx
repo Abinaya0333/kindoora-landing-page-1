@@ -204,7 +204,7 @@ function ProblemSection() {
                 className="px-2 sm:px-3 py-1 text-sm rounded-full border border-border bg-white hover:bg-cream-dark transition-colors flex-shrink-0"
                 aria-label="Previous problem slide"
               >
-                ←
+                {'←'}
               </button>
               <div className="flex gap-1 sm:gap-2 flex-nowrap">
                 {["Professional", "Emotional", "Trust"].map((label, index) => (
@@ -229,7 +229,7 @@ function ProblemSection() {
                 className="px-2 sm:px-3 py-1 text-sm rounded-full border border-border bg-white hover:bg-cream-dark transition-colors flex-shrink-0"
                 aria-label="Next problem slide"
               >
-                →
+                {'→'}
               </button>
             </div>
 
@@ -753,7 +753,7 @@ function WhyChooseSection() {
                 className="px-2 sm:px-3 py-1 text-sm rounded-full border border-border bg-white hover:bg-cream-dark transition-colors flex-shrink-0"
                 aria-label="Previous why choose slide"
               >
-                ←
+                {'←'}
               </button>
               <div className="flex gap-1 sm:gap-2 flex-nowrap">
                 {["Professional", "Emotional", "Trust"].map((label, index) => (
@@ -778,7 +778,7 @@ function WhyChooseSection() {
                 className="px-2 sm:px-3 py-1 text-sm rounded-full border border-border bg-white hover:bg-cream-dark transition-colors flex-shrink-0"
                 aria-label="Next why choose slide"
               >
-                →
+                {'→'}
               </button>
             </div>
 
