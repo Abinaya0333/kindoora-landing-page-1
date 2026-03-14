@@ -95,10 +95,10 @@ function Navbar() {
                 Contact Us
               </a>
             </div>
-          </div>
-        )}
+        </div>
       </div>
-    </nav>
+    </section>
+    </>
   )
 }
 
@@ -107,24 +107,24 @@ function HeroSection() {
   const heroSlides = [
     {
       tone: "Professional",
-      headline: "Transform Dangerous Corners into Safe Edges in Seconds",
+      headline: "Transform Danger Corners into Safe Edges in Seconds",
       subheadline:
-        "Edge Protector is designed to cushion sharp furniture edges and help prevent accidental injuries, creating a safer home environment for children and families.",
-      cta: "Make Your Home Safer Today",
+        "Edge Protector is designed to cushion edges and help prevent accidental injuries, creating a safer home environment for children",
+      cta: "Make Your Home Safe",
     },
     {
       tone: "Emotional",
-      headline: "Because One Sharp Corner Shouldn’t Hurt the People You Love",
+      headline: "Let Your Kids Explore Fearlessly",
       subheadline:
-        "Edge Protector gently cushions dangerous furniture corners, helping protect your children from painful bumps while they explore and play.",
-      cta: "Protect Your Family Today",
+        "Every corner protected, every moment cherished. Watch your child grow with confidence in a home that cares.",
+      cta: "Protect Your Child Now",
     },
     {
       tone: "Trust",
-      headline: "A Simple Safety Solution for Every Home",
+      headline: "Safety You Can Trust",
       subheadline:
-        "Edge Protector uses soft, durable materials to cover sharp furniture edges and help reduce the risk of injuries at home.",
-      cta: "Start Protecting Your Home",
+        "Tested and proven to reduce injuries from sharp corners. Join thousands of parents who choose safety and peace of mind.",
+      cta: "Get Started Today",
     },
   ]
 
@@ -151,12 +151,30 @@ function HeroSection() {
   }
 
   return (
-    <section id="home" className="pt-20 md:pt-40 pb-12 md:pb-24 bg-cream">
+    <>
+      {/* Hero Intro Image - Above hero section */}
+      <section className="pt-24 md:pt-32 pb-0 bg-cream">
+        <div className="max-w-7xl mx-auto px-6 md:px-8 lg:px-10 flex justify-center">
+          <div className="w-full max-w-sm">
+            <div className="relative bg-white rounded-3xl overflow-hidden shadow-lg">
+              <Image
+                src="/images/hero-baby.jpg"
+                alt="Happy toddler safely playing in a protected home"
+                width={500}
+                height={500}
+                className="w-full h-auto object-cover"
+                priority
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Main Hero Section */}
+      <section id="home" className="pt-12 md:pt-20 pb-12 md:pb-24 bg-cream">
       <div className="max-w-7xl mx-auto px-6 md:px-8 lg:px-10">
-        {/* Mobile: Text first, Desktop: 2-column layout */}
-        <div className="flex flex-col md:grid md:grid-cols-2 gap-8 md:gap-12 items-center">
-          {/* Text Content - First on mobile, left on desktop */}
-          <div className="w-full md:order-1">
+        {/* Text Content */}
+        <div className="w-full">
             <div
               className="overflow-hidden"
               onTouchStart={handleHeroTouchStart}
@@ -194,22 +212,22 @@ function HeroSection() {
             </div>
 
             {/* Slide Navigation */}
-            <div className="mt-6 flex flex-wrap items-center justify-start gap-2 sm:gap-4">
+            <div className="mt-6 flex items-center justify-start gap-2 sm:gap-3 md:gap-4 flex-nowrap overflow-x-auto">
               <button
                 type="button"
                 onClick={heroPrev}
-                className="px-2 py-1 sm:px-3 text-sm rounded-full border border-border bg-white hover:bg-cream-dark transition-colors"
+                className="px-2 py-1 sm:px-3 text-sm rounded-full border border-border bg-white hover:bg-cream-dark transition-colors flex-shrink-0"
                 aria-label="Previous hero slide"
               >
                 ←
               </button>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex gap-1 sm:gap-2 flex-nowrap">
                 {["Professional", "Emotional", "Trust"].map((label, index) => (
                   <button
                     key={label}
                     type="button"
                     onClick={() => setHeroSlide(index)}
-                    className={`px-2 sm:px-3 py-1 text-xs rounded-full border transition-colors ${
+                    className={`px-2 sm:px-3 py-1 text-xs rounded-full border transition-colors flex-shrink-0 whitespace-nowrap ${
                       heroSlide === index
                         ? "bg-sage text-sage-dark border-sage"
                         : "bg-white text-muted-foreground border-border hover:bg-cream-dark"
@@ -223,7 +241,7 @@ function HeroSection() {
               <button
                 type="button"
                 onClick={heroNext}
-                className="px-2 py-1 sm:px-3 text-sm rounded-full border border-border bg-white hover:bg-cream-dark transition-colors"
+                className="px-2 py-1 sm:px-3 text-sm rounded-full border border-border bg-white hover:bg-cream-dark transition-colors flex-shrink-0"
                 aria-label="Next hero slide"
               >
                 →
@@ -251,22 +269,7 @@ function HeroSection() {
             </div>
           </div>
 
-          {/* Hero Image - Second on mobile, right on desktop */}
-          <div className="w-full md:order-2 flex justify-center">
-            <div className="relative w-full max-w-sm">
-              <div className="absolute inset-0 bg-sage/10 rounded-3xl transform rotate-3"></div>
-              <div className="relative bg-white rounded-3xl overflow-hidden shadow-lg">
-                <Image
-                  src="/images/hero-baby.jpg"
-                  alt="Happy toddler safely playing in a protected home"
-                  width={500}
-                  height={500}
-                  className="w-full h-auto object-cover"
-                  priority
-                />
-              </div>
-            </div>
-          </div>
+
         </div>
       </div>
     </section>
@@ -368,22 +371,22 @@ function ProblemSection() {
               </div>
             </div>
 
-            <div className="mt-6 flex items-center gap-4">
+            <div className="mt-6 flex items-center justify-start gap-2 sm:gap-3 md:gap-4 flex-nowrap overflow-x-auto">
               <button
                 type="button"
                 onClick={problemPrev}
-                className="px-3 py-1 text-sm rounded-full border border-border bg-white hover:bg-cream-dark transition-colors"
+                className="px-2 sm:px-3 py-1 text-sm rounded-full border border-border bg-white hover:bg-cream-dark transition-colors flex-shrink-0"
                 aria-label="Previous problem slide"
               >
                 ←
               </button>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex gap-1 sm:gap-2 flex-nowrap">
                 {["Professional", "Emotional", "Trust"].map((label, index) => (
                   <button
                     key={label}
                     type="button"
                     onClick={() => setProblemSlide(index)}
-                    className={`px-3 py-1 text-xs rounded-full border transition-colors ${
+                    className={`px-2 sm:px-3 py-1 text-xs rounded-full border transition-colors flex-shrink-0 whitespace-nowrap ${
                       problemSlide === index
                         ? "bg-sage text-sage-dark border-sage"
                         : "bg-white text-muted-foreground border-border hover:bg-cream-dark"
@@ -397,7 +400,7 @@ function ProblemSection() {
               <button
                 type="button"
                 onClick={problemNext}
-                className="px-3 py-1 text-sm rounded-full border border-border bg-white hover:bg-cream-dark transition-colors"
+                className="px-2 sm:px-3 py-1 text-sm rounded-full border border-border bg-white hover:bg-cream-dark transition-colors flex-shrink-0"
                 aria-label="Next problem slide"
               >
                 →
@@ -515,22 +518,22 @@ function SolutionSection() {
             </div>
           </div>
 
-          <div className="mt-6 flex flex-wrap items-center justify-center gap-4">
+          <div className="mt-6 flex items-center justify-center gap-2 sm:gap-3 md:gap-4 flex-nowrap overflow-x-auto">
             <button
               type="button"
               onClick={solutionPrev}
-              className="px-3 py-1 text-sm rounded-full border border-border bg-white hover:bg-cream-dark transition-colors"
+              className="px-2 sm:px-3 py-1 text-sm rounded-full border border-border bg-white hover:bg-cream-dark transition-colors flex-shrink-0"
               aria-label="Previous solution slide"
             >
               ←
             </button>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex gap-1 sm:gap-2 flex-nowrap">
               {["Professional", "Emotional", "Trust"].map((label, index) => (
                 <button
                   key={label}
                   type="button"
                   onClick={() => setSolutionSlide(index)}
-                  className={`px-3 py-1 text-xs rounded-full border transition-colors ${
+                  className={`px-2 sm:px-3 py-1 text-xs rounded-full border transition-colors flex-shrink-0 whitespace-nowrap ${
                     solutionSlide === index
                       ? "bg-sage text-sage-dark border-sage"
                       : "bg-white text-muted-foreground border-border hover:bg-cream-dark"
@@ -544,7 +547,7 @@ function SolutionSection() {
             <button
               type="button"
               onClick={solutionNext}
-              className="px-3 py-1 text-sm rounded-full border border-border bg-white hover:bg-cream-dark transition-colors"
+              className="px-2 sm:px-3 py-1 text-sm rounded-full border border-border bg-white hover:bg-cream-dark transition-colors flex-shrink-0"
               aria-label="Next solution slide"
             >
               →
@@ -718,22 +721,22 @@ function BenefitsSection() {
             </div>
           </div>
 
-          <div className="mt-6 flex flex-wrap items-center justify-center gap-4">
+          <div className="mt-6 flex items-center justify-center gap-2 sm:gap-3 md:gap-4 flex-nowrap overflow-x-auto">
             <button
               type="button"
               onClick={benefitsPrev}
-              className="px-3 py-1 text-sm rounded-full border border-border bg-white hover:bg-cream-dark transition-colors"
+              className="px-2 sm:px-3 py-1 text-sm rounded-full border border-border bg-white hover:bg-cream-dark transition-colors flex-shrink-0"
               aria-label="Previous benefits slide"
             >
               ←
             </button>
-            <div className="flex flex-wrap justify-center gap-2">
+            <div className="flex gap-1 sm:gap-2 flex-nowrap">
               {["Professional", "Emotional", "Trust"].map((label, index) => (
                 <button
                   key={label}
                   type="button"
                   onClick={() => setBenefitsSlide(index)}
-                  className={`px-3 py-1 text-xs rounded-full border transition-colors ${
+                  className={`px-2 sm:px-3 py-1 text-xs rounded-full border transition-colors flex-shrink-0 whitespace-nowrap ${
                     benefitsSlide === index
                       ? "bg-sage text-sage-dark border-sage"
                       : "bg-white text-muted-foreground border-border hover:bg-cream-dark"
@@ -744,6 +747,15 @@ function BenefitsSection() {
                 </button>
               ))}
             </div>
+            <button
+              type="button"
+              onClick={benefitsNext}
+              className="px-2 sm:px-3 py-1 text-sm rounded-full border border-border bg-white hover:bg-cream-dark transition-colors flex-shrink-0"
+              aria-label="Next benefits slide"
+            >
+              →
+            </button>
+          </div>
             <button
               type="button"
               onClick={benefitsNext}
@@ -908,22 +920,22 @@ function WhyChooseSection() {
               </div>
             </div>
 
-            <div className="mt-6 flex flex-wrap items-center gap-4">
+            <div className="mt-6 flex items-center justify-start gap-2 sm:gap-3 md:gap-4 flex-nowrap overflow-x-auto">
               <button
                 type="button"
                 onClick={whyPrev}
-                className="px-3 py-1 text-sm rounded-full border border-border bg-white hover:bg-cream-dark transition-colors"
+                className="px-2 sm:px-3 py-1 text-sm rounded-full border border-border bg-white hover:bg-cream-dark transition-colors flex-shrink-0"
                 aria-label="Previous why choose slide"
               >
                 ←
               </button>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex gap-1 sm:gap-2 flex-nowrap">
                 {["Professional", "Emotional", "Trust"].map((label, index) => (
                   <button
                     key={label}
                     type="button"
                     onClick={() => setWhySlide(index)}
-                    className={`px-3 py-1 text-xs rounded-full border transition-colors ${
+                    className={`px-2 sm:px-3 py-1 text-xs rounded-full border transition-colors flex-shrink-0 whitespace-nowrap ${
                       whySlide === index
                         ? "bg-sage text-sage-dark border-sage"
                         : "bg-white text-muted-foreground border-border hover:bg-cream-dark"
@@ -937,7 +949,7 @@ function WhyChooseSection() {
               <button
                 type="button"
                 onClick={whyNext}
-                className="px-3 py-1 text-sm rounded-full border border-border bg-white hover:bg-cream-dark transition-colors"
+                className="px-2 sm:px-3 py-1 text-sm rounded-full border border-border bg-white hover:bg-cream-dark transition-colors flex-shrink-0"
                 aria-label="Next why choose slide"
               >
                 →
@@ -1199,22 +1211,22 @@ function HowItWorksSection() {
             </div>
           </div>
 
-          <div className="mt-6 flex flex-wrap items-center justify-center gap-4">
+          <div className="mt-6 flex items-center justify-center gap-2 sm:gap-3 md:gap-4 flex-nowrap overflow-x-auto">
             <button
               type="button"
               onClick={howPrev}
-              className="px-3 py-1 text-sm rounded-full border border-border bg-white hover:bg-cream-dark transition-colors"
+              className="px-2 sm:px-3 py-1 text-sm rounded-full border border-border bg-white hover:bg-cream-dark transition-colors flex-shrink-0"
               aria-label="Previous how it works slide"
             >
               ←
             </button>
-            <div className="flex flex-wrap justify-center gap-2">
+            <div className="flex gap-1 sm:gap-2 flex-nowrap">
               {["Professional", "Emotional", "Trust"].map((label, index) => (
                 <button
                   key={label}
                   type="button"
                   onClick={() => setHowSlide(index)}
-                  className={`px-3 py-1 text-xs rounded-full border transition-colors ${
+                  className={`px-2 sm:px-3 py-1 text-xs rounded-full border transition-colors flex-shrink-0 whitespace-nowrap ${
                     howSlide === index
                       ? "bg-sage text-sage-dark border-sage"
                       : "bg-white text-muted-foreground border-border hover:bg-cream-dark"
@@ -1228,7 +1240,7 @@ function HowItWorksSection() {
             <button
               type="button"
               onClick={howNext}
-              className="px-3 py-1 text-sm rounded-full border border-border bg-white hover:bg-cream-dark transition-colors"
+              className="px-2 sm:px-3 py-1 text-sm rounded-full border border-border bg-white hover:bg-cream-dark transition-colors flex-shrink-0"
               aria-label="Next how it works slide"
             >
               →
