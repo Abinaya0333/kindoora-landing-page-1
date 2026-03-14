@@ -554,7 +554,7 @@ function BenefitsSection() {
               className="px-2 sm:px-3 py-1 text-sm rounded-full border border-border bg-white hover:bg-cream-dark transition-colors flex-shrink-0"
               aria-label="Previous benefits slide"
             >
-              ←
+              {'←'}
             </button>
             <div className="flex gap-1 sm:gap-2 flex-nowrap">
               {["Professional", "Emotional", "Trust"].map((label, index) => (
@@ -579,19 +579,9 @@ function BenefitsSection() {
               className="px-2 sm:px-3 py-1 text-sm rounded-full border border-border bg-white hover:bg-cream-dark transition-colors flex-shrink-0"
               aria-label="Next benefits slide"
             >
-              →
+              {'→'}
             </button>
           </div>
-            <button
-              type="button"
-              onClick={benefitsNext}
-              className="px-3 py-1 text-sm rounded-full border border-border bg-white hover:bg-cream-dark transition-colors"
-              aria-label="Next benefits slide"
-            >
-              →
-            </button>
-          </div>
-        </div>
 
         <div className="mt-16">
           <div className="overflow-hidden">
