@@ -152,12 +152,12 @@ function HeroSection() {
 
   return (
     <section id="home" className="pt-28 sm:pt-32 md:pt-40 pb-12 md:pb-24 bg-cream overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
         <div className="flex flex-col md:grid md:grid-cols-2 gap-8 md:gap-12 items-center">
           {/* Text Content */}
-          <div className="order-2 md:order-1 text-center md:text-left pt-4 md:pt-0">
+          <div className="order-2 md:order-1 text-left pt-4 md:pt-0 min-w-0 w-full">
             <div
-              className="overflow-hidden"
+              className="overflow-hidden w-full"
               onTouchStart={handleHeroTouchStart}
               onTouchEnd={handleHeroTouchEnd}
             >
@@ -166,23 +166,23 @@ function HeroSection() {
                 style={{ transform: `translateX(-${heroSlide * 100}%)` }}
               >
                 {heroSlides.map((slide, index) => (
-                  <div key={slide.tone} className="w-full flex-shrink-0">
-                    <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold text-foreground leading-tight px-1 sm:px-0">
+                  <div key={slide.tone} className="w-full flex-shrink-0 min-w-0 pr-1">
+                    <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold text-foreground leading-tight">
                       {slide.headline}
                     </h1>
-                    <p className="mt-4 md:mt-6 text-base sm:text-lg md:text-xl text-muted-foreground leading-relaxed max-w-lg mx-auto md:mx-0 px-2 sm:px-0">
+                    <p className="mt-4 md:mt-6 text-base sm:text-lg md:text-xl text-muted-foreground leading-relaxed max-w-lg md:mx-0">
                       {slide.subheadline}
                     </p>
-                    <div className="mt-8 flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4 w-full">
+                    <div className="mt-8 flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-3 sm:gap-4 w-full">
                       <a
                         href="#contact"
-                        className="inline-flex items-center justify-center w-full sm:w-auto px-6 sm:px-10 py-3.5 sm:py-3.5 bg-terracotta text-white font-semibold rounded-full hover:bg-terracotta-dark transition-colors text-base sm:text-lg"
+                        className="inline-flex items-center justify-center w-[90vw] sm:w-auto px-6 sm:px-10 py-3.5 bg-terracotta text-white font-semibold rounded-full hover:bg-terracotta-dark transition-colors text-base sm:text-lg"
                       >
                         Shop Now
                       </a>
                       <a
                         href="#how-it-works"
-                        className="inline-flex items-center justify-center w-full sm:w-auto px-6 sm:px-10 py-3.5 sm:py-3.5 bg-white text-foreground font-semibold rounded-full border border-border hover:bg-cream-dark transition-colors text-base sm:text-lg"
+                        className="inline-flex items-center justify-center w-[90vw] sm:w-auto px-6 sm:px-10 py-3.5 bg-white text-foreground font-semibold rounded-full border border-border hover:bg-cream-dark transition-colors text-base sm:text-lg"
                       >
                         Learn More
                       </a>
@@ -192,7 +192,7 @@ function HeroSection() {
               </div>
             </div>
 
-            <div className="mt-6 flex items-center justify-center md:justify-start gap-1.5 sm:gap-3 w-full overflow-x-auto pb-1 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+            <div className="mt-6 flex items-center justify-start gap-1.5 sm:gap-3 w-full overflow-x-auto pb-1 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
               <button
                 type="button"
                 onClick={heroPrev}
@@ -201,7 +201,7 @@ function HeroSection() {
               >
                 ←
               </button>
-              <div className="flex flex-nowrap justify-center gap-1.5 sm:gap-2">
+              <div className="flex flex-nowrap justify-start gap-1.5 sm:gap-2">
                 {["Trust1", "Trust2", "Trust3"].map((label, index) => (
                   <button
                     key={label}
@@ -230,29 +230,29 @@ function HeroSection() {
             <div className="mt-10 md:mt-12 flex flex-row items-center justify-center md:justify-start gap-6 sm:gap-10 max-w-3xl mx-auto md:mx-0">
               <div className="flex items-center gap-2">
                 <Shield className="w-5 h-5 text-sage flex-shrink-0" strokeWidth={1.5} />
-                <span className="text-[13px] sm:text-sm font-medium text-muted-foreground leading-tight text-left">Child-<br/>Safe</span>
+                <span className="text-[13px] sm:text-sm font-medium text-muted-foreground whitespace-nowrap">Child-Safe</span>
               </div>
               <div className="flex items-center gap-2">
                 <Leaf className="w-5 h-5 text-sage flex-shrink-0" strokeWidth={1.5} />
-                <span className="text-[13px] sm:text-sm font-medium text-muted-foreground leading-tight text-left">Non-<br/>Toxic</span>
+                <span className="text-[13px] sm:text-sm font-medium text-muted-foreground whitespace-nowrap">Non-Toxic</span>
               </div>
               <div className="flex items-center gap-2">
                 <Award className="w-5 h-5 text-sage flex-shrink-0" strokeWidth={1.5} />
-                <span className="text-[13px] sm:text-sm font-medium text-muted-foreground leading-tight text-left">Premium<br/>Quality</span>
+                <span className="text-[13px] sm:text-sm font-medium text-muted-foreground whitespace-nowrap">Premium Quality</span>
               </div>
             </div>
           </div>
 
           {/* Image Content */}
-          <div className="order-1 md:order-2 flex justify-center w-full px-2 sm:px-0 mt-8 md:mt-0 pb-4 md:pb-0">
-            <div className="relative w-full max-w-[280px] sm:max-w-sm md:max-w-md">
+          <div className="order-1 md:order-2 flex justify-center w-full mt-4 md:mt-0 pb-4 md:pb-0">
+            <div className="relative max-w-[366px] w-full aspect-square sm:max-w-sm md:max-w-md">
               <div className="absolute inset-0 bg-sage/10 rounded-3xl transform rotate-3"></div>
-              <div className="relative bg-white rounded-3xl overflow-hidden shadow-lg w-full aspect-square">
+              <div className="relative bg-white rounded-3xl overflow-hidden shadow-lg w-full h-full">
                 <Image
                   src="/images/hero-baby.jpg"
                   alt="Happy toddler safely playing in a protected home"
                   fill
-                  sizes="(max-width: 768px) 100vw, 50vw"
+                  sizes="(max-width: 640px) 366px, (max-width: 768px) 100vw, 50vw"
                   className="object-cover"
                   priority
                 />
@@ -314,18 +314,20 @@ function ProblemSection() {
     <section className="py-12 md:py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
-          <div className="relative order-1 px-4 sm:px-0">
-            <div className="rounded-3xl overflow-hidden shadow-lg w-full aspect-square relative">
-              <Image
-                src="/images/problem-sharp-edges.jpg"
-                alt="Toddler exploring near sharp furniture edges"
-                fill
-                sizes="(max-width: 768px) 100vw, 50vw"
-                className="object-cover"
-              />
+          <div className="relative order-1 flex justify-center w-full">
+            <div className="relative max-w-[366px] w-full aspect-square sm:max-w-none">
+              <div className="rounded-3xl overflow-hidden shadow-lg w-full h-full relative">
+                <Image
+                  src="/images/problem-sharp-edges.jpg"
+                  alt="Toddler exploring near sharp furniture edges"
+                  fill
+                  sizes="(max-width: 640px) 366px, (max-width: 768px) 100vw, 50vw"
+                  className="object-cover"
+                />
+              </div>
             </div>
           </div>
-          <div className="order-2 text-center md:text-left">
+          <div className="order-2 text-left">
             <span className="inline-block px-4 py-1.5 bg-sage/10 text-sage-dark rounded-full text-sm font-medium mb-4">
               Understanding the Need
             </span>
@@ -392,14 +394,14 @@ function ProblemSection() {
               </button>
             </div>
 
-            <div className="mt-8 flex flex-col sm:flex-row flex-wrap justify-center md:justify-start gap-3 w-full">
-              <div className="flex items-center justify-center gap-2 bg-cream px-4 py-2.5 rounded-full w-full sm:w-auto">
-                <Heart className="w-4 h-4 text-terracotta" />
-                <span className="text-sm text-foreground">Parent Approved</span>
+            <div className="mt-8 flex flex-row items-center justify-center gap-3 w-full">
+              <div className="flex items-center gap-2 bg-cream px-4 py-2.5 rounded-full">
+                <Heart className="w-4 h-4 text-terracotta flex-shrink-0" />
+                <span className="text-sm text-foreground whitespace-nowrap">Parent Approved</span>
               </div>
-              <div className="flex items-center justify-center gap-2 bg-cream px-4 py-2.5 rounded-full w-full sm:w-auto">
-                <Home className="w-4 h-4 text-terracotta" />
-                <span className="text-sm text-foreground">Home Friendly</span>
+              <div className="flex items-center gap-2 bg-cream px-4 py-2.5 rounded-full">
+                <Home className="w-4 h-4 text-terracotta flex-shrink-0" />
+                <span className="text-sm text-foreground whitespace-nowrap">Home Friendly</span>
               </div>
             </div>
           </div>
@@ -482,14 +484,14 @@ function SolutionSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <div className="flex justify-center mb-8 sm:mb-12 px-2 sm:px-0">
-          <div className="relative w-full max-w-xs sm:max-w-md">
+          <div className="relative max-w-[366px] w-full sm:max-w-md">
             <div className="absolute inset-0 bg-sage/10 rounded-3xl transform -rotate-2"></div>
             <div className="relative bg-white rounded-3xl p-6 sm:p-8 shadow-lg aspect-square flex items-center justify-center">
               <Image
                 src={PRODUCT_IMAGE_1}
                 alt="Kindoora Edge Protector"
                 fill
-                sizes="(max-width: 768px) 100vw, 50vw"
+                sizes="(max-width: 640px) 366px, (max-width: 768px) 100vw, 50vw"
                 className="object-contain p-4"
               />
             </div>
@@ -497,7 +499,7 @@ function SolutionSection() {
         </div>
 
         <div
-          className="max-w-3xl mx-auto text-center overflow-hidden"
+          className="max-w-3xl mx-auto text-left md:text-center overflow-hidden"
           onTouchStart={handleSolutionTouchStart}
           onTouchEnd={handleSolutionTouchEnd}
         >
@@ -510,7 +512,7 @@ function SolutionSection() {
                 <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-foreground mb-4 text-balance">
                   {slide.title}
                 </h2>
-                <p className="text-center text-muted-foreground text-base sm:text-lg mb-4 md:mb-6">
+                <p className="text-left md:text-center text-muted-foreground text-base sm:text-lg mb-4 md:mb-6">
                   {slide.description}
                 </p>
               </div>
@@ -779,39 +781,18 @@ function WhyChooseSection() {
       title: "A Brand Parents Can Depend On",
       description: "Built with safety, quality materials, and simple installation in mind.",
       body: "At Kindoora, we focus on creating dependable home safety solutions that families can trust.",
-      bullets: [
-        "✔  Premium Quality Silicone",
-        "✔ Child-Safe Materials",
-        "✔ Strong Adhesive Hold",
-        "✔ Easy Installation in Minutes",
-      ],
     },
     {
       tone: "Emotional",
       title: "Safety You Can Rely On",
       description: "Products designed to provide dependable protection for modern families.",
       body: "At Kindoora, every product is made using durable, child-safe materials so parents can baby-proof their homes with confidence.",
-      bullets: [
-        "✔ Premium Silicone Material",
-        "✔ Safe for Children and Pets",
-
-        "✔ Secure Adhesive Technology",
-        "✔ Quick Tool-Free Installation",
-        ,
-      ],
     },
     {
       tone: "Trust",
       title: "Built with Safety and Quality in Mind",
       description: "Reliable home safety products designed for families",
       body: "At Kindoora, we combine thoughtful design with high-quality materials to create products parents can trust.",
-      bullets: [
-        "✔ Durable Premium Silicone",
-        "✔ Child-Friendly Materials",
-        "✔ Strong Adhesive Hold",
-        "✔ Fast and Simple Installation",
-
-      ],
     },
   ]
 
@@ -849,17 +830,19 @@ function WhyChooseSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col items-center gap-8 md:gap-12">
           {/* Image - Now at the top for all screen sizes */}
-          <div className="relative w-full max-w-4xl mx-auto shadow-xl rounded-2xl md:rounded-3xl overflow-hidden ring-1 ring-black/5 aspect-video md:aspect-[2/1]">
-            <Image
-              src="/images/trusted-parents.jpg"
-              alt="Caring parents with their baby in a safe home"
-              fill
-              sizes="100vw"
-              className="object-cover"
-            />
+          <div className="flex justify-center w-full">
+            <div className="relative max-w-[366px] w-full aspect-square sm:max-w-4xl sm:aspect-video md:aspect-[2/1] mx-auto shadow-xl rounded-2xl md:rounded-3xl overflow-hidden ring-1 ring-black/5">
+              <Image
+                src="/images/trusted-parents.jpg"
+                alt="Caring parents with their baby in a safe home"
+                fill
+                sizes="(max-width: 640px) 366px, 100vw"
+                className="object-cover"
+              />
+            </div>
           </div>
 
-          <div className="max-w-3xl text-center">
+          <div className="max-w-3xl text-left md:text-center">
             <span className="inline-block px-4 py-1.5 bg-sage/10 text-sage-dark rounded-full text-sm font-medium mb-4">
               Why Kindoora
             </span>
@@ -884,11 +867,6 @@ function WhyChooseSection() {
                     <p className="mt-3 md:mt-4 text-base sm:text-lg text-muted-foreground leading-relaxed">
                       {slide.body}
                     </p>
-                    <div className="mt-5 md:mt-6 space-y-1 md:space-y-2 text-sm sm:text-base text-muted-foreground text-left max-w-xs mx-auto">
-                      {slide.bullets.map((bullet) => (
-                        <div key={bullet}>{bullet}</div>
-                      ))}
-                    </div>
                   </div>
                 ))}
               </div>
@@ -929,7 +907,7 @@ function WhyChooseSection() {
               </button>
             </div>
 
-            <div className="mt-8 md:mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 w-full px-2 sm:px-0">
+            <div className="mt-8 md:mt-10 grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 w-full px-2 sm:px-0">
               {reasons.map((reason, index) => (
                 <div
                   key={index}
@@ -1158,82 +1136,88 @@ function HowItWorksSection() {
   return (
     <section id="how-it-works" className="py-12 md:py-24 bg-white overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto">
-          <span className="inline-block px-4 py-1.5 bg-sage/10 text-sage-dark rounded-full text-sm font-medium mb-4">
-            How It Works
-          </span>
-
-          <div
-            className="overflow-hidden"
-            onTouchStart={handleHowTouchStart}
-            onTouchEnd={handleHowTouchEnd}
-          >
-            <div
-              className="flex transition-transform duration-500 ease-out"
-              style={{ transform: `translateX(-${howSlide * 100}%)` }}
-            >
-              {howSlides.map((slide) => (
-                <div key={slide.tone} className="w-full flex-shrink-0 px-2 sm:px-4">
-                  <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-foreground text-balance">
-                    {slide.title}
-                  </h2>
-                  <p className="mt-4 md:mt-6 text-base sm:text-lg text-muted-foreground leading-relaxed">
-                    {slide.subtitle}
-                  </p>
-                </div>
-              ))}
+        <div className="flex flex-col gap-8 md:gap-12">
+          {/* Image moved to the top */}
+          <div className="flex justify-center w-full">
+            <div className="rounded-2xl md:rounded-3xl overflow-hidden shadow-lg border border-border/50 bg-white relative aspect-square max-w-[366px] w-full sm:aspect-[4/3] sm:max-w-xl mx-auto">
+              <Image
+                src={newImage}
+                alt="Installation process demonstration"
+                fill
+                sizes="(max-width: 640px) 366px, (max-width: 1024px) 100vw, 50vw"
+                className="object-contain p-2 md:p-4"
+              />
             </div>
           </div>
 
-          <div className="mt-6 flex items-center justify-center gap-1.5 sm:gap-3 w-full overflow-x-auto pb-1 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-            <button
-              type="button"
-              onClick={howPrev}
-              className="px-3 py-1.5 text-sm rounded-full border border-border bg-white hover:bg-cream-dark transition-colors flex-shrink-0"
-              aria-label="Previous how it works slide"
-            >
-              ←
-            </button>
-            <div className="flex flex-nowrap justify-center gap-1.5 sm:gap-2">
-              {["Trust1", "Trust2", "Trust3"].map((label, index) => (
-                <button
-                  key={label}
-                  type="button"
-                  onClick={() => setHowSlide(index)}
-                  className={`px-3 py-1.5 text-xs sm:text-sm rounded-full border transition-colors whitespace-nowrap flex-shrink-0 ${howSlide === index
-                    ? "bg-sage text-sage-dark border-sage"
-                    : "bg-white text-muted-foreground border-border hover:bg-cream-dark"
-                    }`}
-                  aria-label={`${label} how it works slide`}
+          <div className="grid lg:grid-cols-2 gap-8 md:gap-12 items-start">
+            <div className="text-left w-full h-full flex flex-col justify-center">
+              <div>
+                <span className="inline-block px-4 py-1.5 bg-sage/10 text-sage-dark rounded-full text-sm font-medium mb-4">
+                  How It Works
+                </span>
+              </div>
+
+              <div
+                className="overflow-hidden"
+                onTouchStart={handleHowTouchStart}
+                onTouchEnd={handleHowTouchEnd}
+              >
+                <div
+                  className="flex transition-transform duration-500 ease-out"
+                  style={{ transform: `translateX(-${howSlide * 100}%)` }}
                 >
-                  {label}
+                  {howSlides.map((slide) => (
+                    <div key={slide.tone} className="w-full flex-shrink-0 pr-4">
+                      <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-foreground text-balance">
+                        {slide.title}
+                      </h2>
+                      <p className="mt-4 md:mt-6 text-base sm:text-lg text-muted-foreground leading-relaxed">
+                        {slide.subtitle}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="mt-6 flex items-center justify-start gap-1.5 sm:gap-3 w-full overflow-x-auto pb-1 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+                <button
+                  type="button"
+                  onClick={howPrev}
+                  className="px-3 py-1.5 text-sm rounded-full border border-border bg-white hover:bg-cream-dark transition-colors flex-shrink-0"
+                  aria-label="Previous how it works slide"
+                >
+                  ←
                 </button>
-              ))}
+                <div className="flex flex-nowrap justify-start gap-1.5 sm:gap-2">
+                  {["Trust1", "Trust2", "Trust3"].map((label, index) => (
+                    <button
+                      key={label}
+                      type="button"
+                      onClick={() => setHowSlide(index)}
+                      className={`px-3 py-1.5 text-xs sm:text-sm rounded-full border transition-colors whitespace-nowrap flex-shrink-0 ${howSlide === index
+                        ? "bg-sage text-sage-dark border-sage"
+                        : "bg-white text-muted-foreground border-border hover:bg-cream-dark"
+                        }`}
+                      aria-label={`${label} how it works slide`}
+                    >
+                      {label}
+                    </button>
+                  ))}
+                </div>
+                <button
+                  type="button"
+                  onClick={howNext}
+                  className="px-3 py-1.5 text-sm rounded-full border border-border bg-white hover:bg-cream-dark transition-colors flex-shrink-0"
+                  aria-label="Next how it works slide"
+                >
+                  →
+                </button>
+              </div>
             </div>
-            <button
-              type="button"
-              onClick={howNext}
-              className="px-3 py-1.5 text-sm rounded-full border border-border bg-white hover:bg-cream-dark transition-colors flex-shrink-0"
-              aria-label="Next how it works slide"
-            >
-              →
-            </button>
-          </div>
-        </div>
 
-        <div className="mt-12 md:mt-16 grid lg:grid-cols-2 gap-8 md:gap-12 items-center">
-          <div className="rounded-2xl md:rounded-3xl overflow-hidden shadow-lg border border-border/50 bg-white relative aspect-[4/3] w-full max-w-lg mx-auto lg:max-w-none">
-            <Image
-              src={newImage}
-              alt="Installation process demonstration"
-              fill
-              sizes="(max-width: 1024px) 100vw, 50vw"
-              className="object-contain p-2 md:p-4"
-            />
-          </div>
-
-          <div className="grid sm:grid-cols-2 gap-4 md:gap-6 w-full">
-            <div className="sm:col-span-2 overflow-hidden">
+            <div className="grid sm:grid-cols-2 gap-4 md:gap-6 w-full h-full content-center">
+              <div className="sm:col-span-2 overflow-hidden">
               <div
                 className="flex transition-transform duration-500 ease-out"
                 style={{ transform: `translateX(-${howSlide * 100}%)` }}
@@ -1251,6 +1235,7 @@ function HowItWorksSection() {
                 ))}
               </div>
             </div>
+          </div>
           </div>
         </div>
       </div>
