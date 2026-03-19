@@ -176,13 +176,13 @@ function HeroSection() {
                     <div className="mt-8 flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-3 sm:gap-4 w-full">
                       <a
                         href="#contact"
-                        className="inline-flex items-center justify-center w-[90vw] sm:w-auto px-6 sm:px-10 py-3.5 bg-terracotta text-white font-semibold rounded-full hover:bg-terracotta-dark transition-colors text-base sm:text-lg"
+                        className="inline-flex items-center justify-center w-full sm:w-auto px-6 sm:px-10 py-3.5 bg-terracotta text-white font-semibold rounded-full hover:bg-terracotta-dark transition-colors text-base sm:text-lg"
                       >
-                        Shop Now
+                        Contact Us
                       </a>
                       <a
                         href="#how-it-works"
-                        className="inline-flex items-center justify-center w-[90vw] sm:w-auto px-6 sm:px-10 py-3.5 bg-white text-foreground font-semibold rounded-full border border-border hover:bg-cream-dark transition-colors text-base sm:text-lg"
+                        className="inline-flex items-center justify-center w-full sm:w-auto px-6 sm:px-10 py-3.5 bg-white text-foreground font-semibold rounded-full border border-border hover:bg-cream-dark transition-colors text-base sm:text-lg"
                       >
                         Learn More
                       </a>
@@ -227,7 +227,7 @@ function HeroSection() {
               </button>
             </div>
 
-            <div className="mt-10 md:mt-12 flex flex-row items-center justify-center md:justify-start gap-6 sm:gap-10 max-w-3xl mx-auto md:mx-0">
+            <div className="mt-10 md:mt-12 flex flex-wrap items-center justify-center md:justify-start gap-4 sm:gap-10 max-w-3xl mx-auto md:mx-0">
               <div className="flex items-center gap-2">
                 <Shield className="w-5 h-5 text-sage flex-shrink-0" strokeWidth={1.5} />
                 <span className="text-[13px] sm:text-sm font-medium text-muted-foreground whitespace-nowrap">Child-Safe</span>
@@ -394,7 +394,7 @@ function ProblemSection() {
               </button>
             </div>
 
-            <div className="mt-8 flex flex-row items-center justify-center gap-3 w-full">
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-3 w-full">
               <div className="flex items-center gap-2 bg-cream px-4 py-2.5 rounded-full">
                 <Heart className="w-4 h-4 text-terracotta flex-shrink-0" />
                 <span className="text-sm text-foreground whitespace-nowrap">Parent Approved</span>
@@ -907,14 +907,14 @@ function WhyChooseSection() {
               </button>
             </div>
 
-            <div className="mt-8 md:mt-10 grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 w-full px-2 sm:px-0">
+            <div className="mt-8 md:mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 w-full px-2 sm:px-0">
               {reasons.map((reason, index) => (
                 <div
                   key={index}
                   className="flex items-center justify-center sm:justify-start gap-3 bg-cream rounded-xl px-4 py-3 md:py-4 border border-sage/10 hover:border-sage/30 transition-colors"
                 >
                   <reason.icon className="w-5 h-5 text-sage flex-shrink-0" />
-                  <span className="text-sm font-medium text-foreground whitespace-nowrap">{reason.key}</span>
+                  <span className="text-sm font-medium text-foreground">{reason.key}</span>
                 </div>
               ))}
             </div>
