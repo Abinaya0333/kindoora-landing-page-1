@@ -112,22 +112,22 @@ function HeroSection() {
         <div className="flex flex-col md:grid md:grid-cols-2 gap-8 md:gap-12 items-center">
           {/* Text Content */}
           <div className="order-2 md:order-1 text-left pt-4 md:pt-0 min-w-0 w-full">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold text-foreground leading-tight">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-foreground leading-tight">
               A Safer Home Starts with Protecting Every Corner
             </h1>
             <p className="mt-4 md:mt-6 text-base sm:text-lg md:text-xl text-muted-foreground leading-relaxed max-w-lg md:mx-0">
               Edge Protector uses durable, child-safe materials to cushion sharp furniture edges and help prevent accidental injuries at home.
             </p>
-            <div className="mt-8 flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-3 sm:gap-4 w-full">
+            <div className="mt-8 flex flex-row items-center justify-start gap-3 sm:gap-4 w-full overflow-x-auto pb-2 sm:pb-0">
               <a
                 href="#contact"
-                className="inline-flex items-center justify-center w-full sm:w-auto px-6 sm:px-10 py-3.5 bg-terracotta text-white font-semibold rounded-full hover:bg-terracotta-dark transition-colors text-base sm:text-lg"
+                className="inline-flex items-center justify-center whitespace-nowrap px-5 sm:px-10 py-3 bg-terracotta text-white font-semibold rounded-full hover:bg-terracotta-dark transition-colors text-sm sm:text-lg"
               >
                 Contact Us
               </a>
               <a
                 href="#how-it-works"
-                className="inline-flex items-center justify-center w-full sm:w-auto px-6 sm:px-10 py-3.5 bg-white text-foreground font-semibold rounded-full border border-border hover:bg-cream-dark transition-colors text-base sm:text-lg"
+                className="inline-flex items-center justify-center whitespace-nowrap px-5 sm:px-10 py-3 bg-white text-foreground font-semibold rounded-full border border-border hover:bg-cream-dark transition-colors text-sm sm:text-lg"
               >
                 Learn More
               </a>

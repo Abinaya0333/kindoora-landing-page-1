@@ -1,0 +1,640 @@
+﻿commit 7bf5ed14ac72e4f599d711740698a8221a9db139
+Author: Abinaya <abinaya0333@gmail.com>
+Date:   Thu Mar 19 21:47:46 2026 +0530
+
+    form
+
+diff --git a/app/page.tsx b/app/page.tsx
+index 64155cf..22126a9 100644
+--- a/app/page.tsx
++++ b/app/page.tsx
+@@ -1,7 +1,8 @@
+ "use client"
+ 
+-import React, { useState, useEffect } from "react"
++import React, { useState, useEffect, useRef } from "react"
+ import Image from "next/image"
++import emailjs from '@emailjs/browser'
+ import { ChevronDown, Menu, X, Shield, Leaf, Zap, Package, Heart, Home, Award, Clock, Check, Star, Droplets, Scissors, Calendar } from "lucide-react"
+ 
+ import logoBlack from "./logo-black.png"
+@@ -1333,138 +1334,163 @@ function FAQSection() {
+ // CTA Section
+ // Contact Form Section
+ function ContactSection() {
++  const formRef = useRef<HTMLFormElement>(null)
++  const [showSuccess, setShowSuccess] = useState(false)
++  const [isSubmitting, setIsSubmitting] = useState(false)
+   const [formData, setFormData] = useState({
+-    fullName: "",
+-    email: "",
+-    phone: "",
++    from_name: "",
++    reply_to: "",
++    phone_number: "",
+     message: "",
+   })
+-  const [isSubmitting, setIsSubmitting] = useState(false)
+-  const [submitMessage, setSubmitMessage] = useState("")
+ 
+   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+     const { name, value } = e.target
+-    setFormData((prev: typeof formData) => ({
+-      ...prev,
+-      [name]: value,
+-    }))
++    setFormData((prev) => ({ ...prev, [name]: value }))
+   }
+ 
+   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+     e.preventDefault()
++    if (!formRef.current) return
+     setIsSubmitting(true)
+ 
+-    // Simulate submission delay
+-    await new Promise(resolve => setTimeout(resolve, 1000))
+-
+-    // Log the form data (in production, this would be sent to a server)
+-    console.log("[v0] Contact form submitted:", formData)
+-
+-    // Show success message
+-    setSubmitMessage("Thank you! We've received your message. We'll get back to you within 24 hours.")
+-    setFormData({ fullName: "", email: "", phone: "", message: "" })
++    try {
++      const templateParams = {
++        fullName: formData.from_name,       // Used in both templates
++        from_name: formData.from_name,      // Repo variant
++        emailAddress: formData.reply_to,    // Admin template variant
++        reply_to: formData.reply_to,        // EmailJS standard
++        phoneNumber: formData.phone_number, // Admin template variant
++        phone_number: formData.phone_number, // User input name
++        message: formData.message,         // Shared
++      }
++
++      // 1. Send to Admin Template
++      const adminRes = await emailjs.send(
++        'service_cmiyrtz',
++        'template_yiujdbr',
++        templateParams,
++        'hBqYv0Dxo3z3vm6uB'
++      )
++      console.log("Admin email sent successfully:", adminRes.status, adminRes.text)
++
++      setShowSuccess(true)
++      setFormData({ from_name: "", reply_to: "", phone_number: "", message: "" })
++    } catch (error: any) {
++      console.error("CRITICAL CONTACT FORM FAILURE:", error)
++      const errorMsg = error?.text || error?.message || "Unknown error"
++      alert(`Failed to send message: ${errorMsg}. Please check your EmailJS settings.`)
++    } finally {
++      setIsSubmitting(false)
++    }
++  }
+ 
+-    // Clear message after 5 seconds
+-    setTimeout(() => setSubmitMessage(""), 5000)
+-    setIsSubmitting(false)
++  const handleReset = () => {
++    setShowSuccess(false)
+   }
+ 
+   return (
+-    <section id="contact" className="py-12 md:py-24 bg-cream overflow-hidden">
+-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
++    <section id="contact" className="py-12 md:py-24 bg-[#FBF5F0] overflow-hidden font-['Outfit',_sans-serif]">
++      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+         <div className="text-center mb-10 md:mb-12">
+-          <span className="inline-block px-4 py-1.5 bg-sage/10 text-sage-dark rounded-full text-sm font-medium mb-4">
+-            Get in Touch
+-          </span>
+-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-foreground text-balance">
++          <span className="inline-block px-4 py-1.5 bg-[#D2A478]/10 text-[#D2A478] rounded-full text-sm font-medium mb-4">
+             Contact Us
++          </span>
++          <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-[#333333] mb-4">
++            Get in Touch
+           </h2>
+-          <p className="mt-4 md:mt-6 text-base sm:text-lg text-muted-foreground leading-relaxed">
+-            Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible.
+-          </p>
+         </div>
+ 
+-        <div className="bg-white rounded-2xl md:rounded-3xl p-6 sm:p-8 md:p-12 shadow-lg">
+-          <form onSubmit={handleSubmit} className="space-y-6">
+-            <div className="grid md:grid-cols-2 gap-6">
+-              <div>
+-                <label htmlFor="fullName" className="block text-sm font-medium text-foreground mb-2">
+-                  Full Name
+-                </label>
++        <div className="bg-white p-6 sm:p-10 rounded-[20px] shadow-[0_10px_40px_rgba(0,0,0,0.04)] transition-transform duration-300">
++          {!showSuccess ? (
++            <form ref={formRef} onSubmit={handleSubmit} className="animate-in fade-in duration-500">
++              <div className="flex flex-col sm:flex-row gap-5 mb-6">
++                <div className="flex-1">
++                  <label htmlFor="from_name" className="block text-sm font-medium text-[#333333] mb-2.5">Full Name</label>
++                  <input
++                    type="text"
++                    id="from_name"
++                    name="from_name"
++                    value={formData.from_name}
++                    onChange={handleChange}
++                    required
++                    placeholder="Your name"
++                    className="w-full px-5 py-4 border border-[#EAEAEA] rounded-[12px] text-base focus:outline-none focus:border-[#D2A478] focus:ring-4 focus:ring-[#D2A478]/10 transition-all placeholder:text-[#BBBBBB]"
++                  />
++                </div>
++                <div className="flex-1">
++                  <label htmlFor="reply_to" className="block text-sm font-medium text-[#333333] mb-2.5">Email Address</label>
++                  <input
++                    type="email"
++                    id="reply_to"
++                    name="reply_to"
++                    value={formData.reply_to}
++                    onChange={handleChange}
++                    required
++                    placeholder="your@email.com"
++                    className="w-full px-5 py-4 border border-[#EAEAEA] rounded-[12px] text-base focus:outline-none focus:border-[#D2A478] focus:ring-4 focus:ring-[#D2A478]/10 transition-all placeholder:text-[#BBBBBB]"
++                  />
++                </div>
++              </div>
++
++              <div className="mb-6">
++                <label htmlFor="phone_number" className="block text-sm font-medium text-[#333333] mb-2.5">Phone Number</label>
+                 <input
+-                  type="text"
+-                  id="fullName"
+-                  name="fullName"
+-                  value={formData.fullName}
++                  type="tel"
++                  id="phone_number"
++                  name="phone_number"
++                  value={formData.phone_number}
+                   onChange={handleChange}
+                   required
+-                  className="w-full px-4 py-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-sage/50 transition-colors"
+-                  placeholder="Your name"
++                  placeholder="+91 XXXXX XXXXX"
++                  className="w-full px-5 py-4 border border-[#EAEAEA] rounded-[12px] text-base focus:outline-none focus:border-[#D2A478] focus:ring-4 focus:ring-[#D2A478]/10 transition-all placeholder:text-[#BBBBBB]"
+                 />
+               </div>
+-              <div>
+-                <label htmlFor="email" className="block text-sm font-medium text-foreground mb-2">
+-                  Email Address
+-                </label>
+-                <input
+-                  type="email"
+-                  id="email"
+-                  name="email"
+-                  value={formData.email}
++
++              <div className="mb-6">
++                <label htmlFor="message" className="block text-sm font-medium text-[#333333] mb-2.5">Message</label>
++                <textarea
++                  id="message"
++                  name="message"
++                  value={formData.message}
+                   onChange={handleChange}
+                   required
+-                  className="w-full px-4 py-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-sage/50 transition-colors"
+-                  placeholder="your@email.com"
++                  rows={5}
++                  placeholder="Tell us how we can help..."
++                  className="w-full px-5 py-4 border border-[#EAEAEA] rounded-[12px] text-base focus:outline-none focus:border-[#D2A478] focus:ring-4 focus:ring-[#D2A478]/10 transition-all placeholder:text-[#BBBBBB] resize-none"
+                 />
+               </div>
+-            </div>
+-
+-            <div>
+-              <label htmlFor="phone" className="block text-sm font-medium text-foreground mb-2">
+-                Phone Number
+-              </label>
+-              <input
+-                type="tel"
+-                id="phone"
+-                name="phone"
+-                value={formData.phone}
+-                onChange={handleChange}
+-                required
+-                className="w-full px-4 py-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-sage/50 transition-colors"
+-                placeholder="+91 XXXXX XXXXX"
+-              />
+-            </div>
+ 
+-            <div>
+-              <label htmlFor="message" className="block text-sm font-medium text-foreground mb-2">
+-                Message
+-              </label>
+-              <textarea
+-                id="message"
+-                name="message"
+-                value={formData.message}
+-                onChange={handleChange}
+-                required
+-                rows={5}
+-                className="w-full px-4 py-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-sage/50 transition-colors resize-none"
+-                placeholder="Tell us how we can help..."
+-              />
+-            </div>
+-
+-            {submitMessage && (
+-              <div className={`p-4 rounded-lg ${submitMessage.includes("Thank you") ? "bg-sage/10 text-sage-dark" : "bg-red-50 text-red-700"}`}>
+-                {submitMessage}
++              <button
++                type="submit"
++                disabled={isSubmitting}
++                className="w-full py-4.5 bg-[#D2A478] text-white font-medium rounded-[12px] text-lg hover:bg-[#C19368] hover:-translate-y-0.5 hover:shadow-[0_8px_20px_rgba(210,_164,_120,_0.3)] active:translate-y-0 transition-all disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-3"
++              >
++                {isSubmitting ? (
++                  <>
++                    <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
++                    <span>Sending...</span>
++                  </>
++                ) : (
++                  <span>Send Message</span>
++                )}
++              </button>
++            </form>
++          ) : (
++            <div className="text-center py-5 animate-in fade-in slide-in-from-bottom-2 duration-500">
++              <div className="text-5xl text-[#D2A478] mb-5 flex justify-center">
++                <Check className="w-16 h-16" />
+               </div>
+-            )}
+-
+-            <button
+-              type="submit"
+-              disabled={isSubmitting}
+-              className="w-full py-3.5 bg-terracotta text-white font-medium rounded-lg hover:bg-terracotta-dark transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+-            >
+-              {isSubmitting ? "Sending..." : "Send Message"}
+-            </button>
+-          </form>
++              <h3 className="text-2xl font-semibold mb-2.5 text-[#333333]">Message Sent!</h3>
++              <p className="text-[#666666] mb-8">We'll get back to you shortly.</p>
++              <button
++                onClick={handleReset}
++                className="px-6 py-3 border border-[#D2A478] text-[#D2A478] rounded-[12px] text-sm font-medium hover:bg-[#D2A478] hover:text-white transition-all"
++              >
++                Send Another Message
++              </button>
++            </div>
++          )}
+         </div>
+       </div>
+     </section>
+
+commit 74c7336184f3d350ac51a99ca96a1b8178bf86ec
+Merge: 9f474b0 9e611c4
+Author: Abinaya <abinaya0333@gmail.com>
+Date:   Thu Mar 19 13:32:38 2026 +0530
+
+    Testimonila update
+
+commit 9f474b07e1111b15814cce3c8762342b3c86c34b
+Author: Abinaya <abinaya0333@gmail.com>
+Date:   Thu Mar 19 13:25:55 2026 +0530
+
+    Testimonal content
+
+diff --git a/app/page.tsx b/app/page.tsx
+index f0bf748..e35320e 100644
+--- a/app/page.tsx
++++ b/app/page.tsx
+@@ -931,21 +931,33 @@ function SocialProofSection() {
+ 
+   const testimonials = [
+     {
+-      name: "Nivi Vishwa",
+-      role: "Mother of 2",
+-      content: "As a first-time mom, I was constantly worried about my toddler bumping into furniture. Kindoora gave me the peace of mind I needed. The quality is exceptional and it blends perfectly with our furniture.",
++      name: "Aaradhya M.",
++      role: "",
++      content: "As a first-time mother, every small risk feels overwhelming. Kindoora gave me a sense of calm I didn't realize I needed. Now, I can let my little one explore without constant worry.",
+       rating: 5
+     },
+     {
+-      name: "Ammu Sivakumar",
+-      role: "Mother of 1",
+-      content: "I love how easy it was to install. Within 10 minutes, our entire living room was baby-proofed. My husband was impressed with how secure the adhesive is. Highly recommend!",
++      name: "Neha S.",
++      role: "",
++      content: "My toddler is always on the move, and sharp corners were a constant concern. Kindoora's edge protectors are soft, secure, and blend beautifully into our home. It feels like safety without compromise.",
+       rating: 5
+     },
+     {
+-      name: "Meenakshi Arunachalam",
+-      role: "Mother of 3",
+-      content: "After trying several brands, Kindoora stands out for its premium quality. The soft cushioning has already saved us from numerous potential bumps. Worth every penny!",
++      name: "Priya K.",
++      role: "",
++      content: "What I appreciate most is the thoughtfulness behind the design. It's gentle, reliable, and truly made for children. I no longer feel the need to hover every second.",
++      rating: 5
++    },
++    {
++      name: "Ritika Sharma",
++      role: "",
++      content: "We've tried other safety products before, but nothing felt this dependable. Kindoora stays in place and does exactly what it promises ΓÇö protects quietly and effectively.",
++      rating: 5
++    },
++    {
++      name: "Divya R.",
++      role: "",
++      content: "It's more than just a safety product. It's peace of mind for parents. Knowing my child is protected, even during those playful, unpredictable moments, makes all the difference.",
+       rating: 5
+     }
+   ]
+
+commit 5be5c291fce9b12d789797378d9a820889015931
+Author: zues.0613 <vishald.cse2023@citchennai.net>
+Date:   Thu Mar 19 13:11:16 2026 +0530
+
+    Screen size fix
+
+diff --git a/app/page.tsx b/app/page.tsx
+index f0bf748..98a7aeb 100644
+--- a/app/page.tsx
++++ b/app/page.tsx
+@@ -176,13 +176,13 @@ function HeroSection() {
+                     <div className="mt-8 flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-3 sm:gap-4 w-full">
+                       <a
+                         href="#contact"
+-                        className="inline-flex items-center justify-center w-[90vw] sm:w-auto px-6 sm:px-10 py-3.5 bg-terracotta text-white font-semibold rounded-full hover:bg-terracotta-dark transition-colors text-base sm:text-lg"
++                        className="inline-flex items-center justify-center w-full sm:w-auto px-6 sm:px-10 py-3.5 bg-terracotta text-white font-semibold rounded-full hover:bg-terracotta-dark transition-colors text-base sm:text-lg"
+                       >
+-                        Shop Now
++                        Contact Us
+                       </a>
+                       <a
+                         href="#how-it-works"
+-                        className="inline-flex items-center justify-center w-[90vw] sm:w-auto px-6 sm:px-10 py-3.5 bg-white text-foreground font-semibold rounded-full border border-border hover:bg-cream-dark transition-colors text-base sm:text-lg"
++                        className="inline-flex items-center justify-center w-full sm:w-auto px-6 sm:px-10 py-3.5 bg-white text-foreground font-semibold rounded-full border border-border hover:bg-cream-dark transition-colors text-base sm:text-lg"
+                       >
+                         Learn More
+                       </a>
+@@ -227,7 +227,7 @@ function HeroSection() {
+               </button>
+             </div>
+ 
+-            <div className="mt-10 md:mt-12 flex flex-row items-center justify-center md:justify-start gap-6 sm:gap-10 max-w-3xl mx-auto md:mx-0">
++            <div className="mt-10 md:mt-12 flex flex-wrap items-center justify-center md:justify-start gap-4 sm:gap-10 max-w-3xl mx-auto md:mx-0">
+               <div className="flex items-center gap-2">
+                 <Shield className="w-5 h-5 text-sage flex-shrink-0" strokeWidth={1.5} />
+                 <span className="text-[13px] sm:text-sm font-medium text-muted-foreground whitespace-nowrap">Child-Safe</span>
+@@ -394,7 +394,7 @@ function ProblemSection() {
+               </button>
+             </div>
+ 
+-            <div className="mt-8 flex flex-row items-center justify-center gap-3 w-full">
++            <div className="mt-8 flex flex-wrap items-center justify-center gap-3 w-full">
+               <div className="flex items-center gap-2 bg-cream px-4 py-2.5 rounded-full">
+                 <Heart className="w-4 h-4 text-terracotta flex-shrink-0" />
+                 <span className="text-sm text-foreground whitespace-nowrap">Parent Approved</span>
+@@ -907,14 +907,14 @@ function WhyChooseSection() {
+               </button>
+             </div>
+ 
+-            <div className="mt-8 md:mt-10 grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 w-full px-2 sm:px-0">
++            <div className="mt-8 md:mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 w-full px-2 sm:px-0">
+               {reasons.map((reason, index) => (
+                 <div
+                   key={index}
+                   className="flex items-center justify-center sm:justify-start gap-3 bg-cream rounded-xl px-4 py-3 md:py-4 border border-sage/10 hover:border-sage/30 transition-colors"
+                 >
+                   <reason.icon className="w-5 h-5 text-sage flex-shrink-0" />
+-                  <span className="text-sm font-medium text-foreground whitespace-nowrap">{reason.key}</span>
++                  <span className="text-sm font-medium text-foreground">{reason.key}</span>
+                 </div>
+               ))}
+             </div>
+
+commit 799d74c6744a598c6283aded76ce172351805884
+Author: zues.0613 <vishald.cse2023@citchennai.net>
+Date:   Thu Mar 19 12:09:41 2026 +0530
+
+    footer changes
+
+diff --git a/app/page.tsx b/app/page.tsx
+index 29970be..f0bf748 100644
+--- a/app/page.tsx
++++ b/app/page.tsx
+@@ -1225,8 +1225,8 @@ function HowItWorksSection() {
+                 {howSlides.map((slide) => (
+                   <div key={slide.tone} className="w-full flex-shrink-0 grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
+                     {slide.steps.map((step, index) => (
+-                      <div key={index} className="bg-cream rounded-2xl p-5 md:p-8 text-center sm:text-left">
+-                        <div className="text-3xl md:text-4xl font-bold text-sage/20 mb-3 md:mb-4">{step.number}</div>
++                      <div key={index} className="bg-cream rounded-2xl p-5 md:p-8 text-left">
++                        <div className="text-3xl md:text-4xl font-bold text-sage/50 md:text-sage/20 mb-3 md:mb-4">{step.number}</div>
+                         <h3 className="text-base md:text-lg font-semibold text-foreground mb-2">{step.title}</h3>
+                         <p className="text-sm md:text-base text-muted-foreground leading-relaxed">{step.description}</p>
+                       </div>
+@@ -1461,33 +1461,18 @@ function ContactSection() {
+ 
+ // Footer
+ function Footer() {
+-  const productLinks = [
+-    { label: "Explore", href: "#home" },
+-    { label: "Features", href: "#solution" },
+-    { label: "Pricing", href: "#contact" },
+-    { label: "Integrations", href: "#how-it-works" },
+-    { label: "Updates", href: "#" },
+-  ]
+-
+-  const companyLinks = [
+-    { label: "About Us", href: "#" },
+-    { label: "Careers", href: "#" },
+-    { label: "Blog", href: "#" },
+-    { label: "Partners", href: "#" },
+-    { label: "Testimonials", href: "#faq" },
+-  ]
+-
+-  const legalLinks = [
+-    { label: "Terms & Conditions", href: "#" },
+-    { label: "Privacy Policy", href: "#" },
+-    { label: "Refund Policy", href: "#" },
+-    { label: "Cookie Policy", href: "#" },
++  const quickLinks = [
++    { label: "Home", href: "#home" },
++    { label: "Benefits", href: "#benefits" },
++    { label: "How It Works", href: "#how-it-works" },
++    { label: "FAQ", href: "#faq" },
++    { label: "Contact Us", href: "#contact" },
+   ]
+ 
+   const socialLinks = [
+     {
+       label: "Instagram",
+-      href: "https://instagram.com",
++      href: "https://www.instagram.com/kindoora.in/",
+       icon: (
+         <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+           <path fillRule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" clipRule="evenodd" />
+@@ -1495,26 +1480,17 @@ function Footer() {
+       ),
+     },
+     {
+-      label: "LinkedIn",
+-      href: "https://linkedin.com",
+-      icon: (
+-        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+-          <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+-        </svg>
+-      ),
+-    },
+-    {
+-      label: "Twitter / X",
+-      href: "https://x.com",
++      label: "WhatsApp",
++      href: "https://wa.me/message/M4QPJXKGCOZEC1",
+       icon: (
+         <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+-          <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
++          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+         </svg>
+       ),
+     },
+     {
+       label: "Email",
+-      href: "mailto:support@kindoora.com",
++      href: "mailto:support@kindoora.in",
+       icon: (
+         <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden="true">
+           <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+@@ -1528,23 +1504,22 @@ function Footer() {
+       {/* Subtle gradient overlay to match landing page feel */}
+       <div className="absolute inset-0 bg-gradient-to-br from-[#3D3D3D] via-[#2F2F2F] to-[#3D3D3D] pointer-events-none" />
+ 
+-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-8 md:pt-20 md:pb-10">
+-        {/* 4-Column Grid */}
+-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
+-
++      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 pb-8 md:pt-6 md:pb-10">
++        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-8">
++          
+           {/* Column 1 ΓÇô Brand Section */}
+-          <div className="sm:col-span-2 lg:col-span-1 flex flex-col items-center lg:items-start">
+-            <a href="#home" className="flex items-center hover:opacity-80 transition-opacity flex-shrink-0 mb-5">
++          <div className="flex flex-col items-center md:items-start">
++            <a href="#home" className="flex items-center hover:opacity-80 transition-opacity flex-shrink-0 -mt-2 -mb-6">
+               <Image
+                 src={logoWhite}
+                 alt="Kindoora Logo"
+                 width={600}
+                 height={180}
+-                className="object-contain h-32 md:h-48 lg:h-64 w-auto"
++                className="object-contain w-[140px] md:w-[180px] lg:w-[200px] h-auto"
+               />
+             </a>
+-            <p className="text-white/60 text-sm leading-relaxed text-center lg:text-left max-w-xs">
+-              Kindoora helps creators, entrepreneurs, and communities build, launch, and scale digital experiences with powerful tools and simple workflows.
++            <p className="text-white/60 text-base leading-relaxed text-center md:text-left max-w-xs font-medium italic">
++              Gentle safety for Growing homes
+             </p>
+ 
+             {/* Social Icons */}
+@@ -1566,76 +1541,45 @@ function Footer() {
+             </div>
+           </div>
+ 
+-          {/* Column 2 ΓÇô Product */}
+-          <div className="flex flex-col items-center lg:items-start">
+-            <h4 className="text-white font-semibold text-base mb-5 tracking-wide">Product</h4>
+-            <ul className="space-y-3 text-center lg:text-left">
+-              {productLinks.map((link) => (
+-                <li key={link.label}>
+-                  <a
+-                    href={link.href}
+-                    className="text-white/60 hover:text-white text-sm transition-colors duration-300 hover:translate-x-1 inline-block"
+-                  >
+-                    {link.label}
+-                  </a>
+-                </li>
+-              ))}
+-            </ul>
+-          </div>
+-
+-          {/* Column 3 ΓÇô Company */}
+-          <div className="flex flex-col items-center lg:items-start">
+-            <h4 className="text-white font-semibold text-base mb-5 tracking-wide">Company</h4>
+-            <ul className="space-y-3 text-center lg:text-left">
+-              {companyLinks.map((link) => (
+-                <li key={link.label}>
+-                  <a
+-                    href={link.href}
+-                    className="text-white/60 hover:text-white text-sm transition-colors duration-300 hover:translate-x-1 inline-block"
+-                  >
+-                    {link.label}
+-                  </a>
+-                </li>
+-              ))}
+-            </ul>
+-          </div>
+-
+-          {/* Column 4 ΓÇô Legal */}
+-          <div className="flex flex-col items-center lg:items-start">
+-            <h4 className="text-white font-semibold text-base mb-5 tracking-wide">Legal</h4>
+-            <ul className="space-y-3 text-center lg:text-left">
+-              {legalLinks.map((link) => (
+-                <li key={link.label}>
+-                  <a
+-                    href={link.href}
+-                    className="text-white/60 hover:text-white text-sm transition-colors duration-300 hover:translate-x-1 inline-block"
+-                  >
+-                    {link.label}
+-                  </a>
+-                </li>
+-              ))}
+-            </ul>
++          {/* Column 2 ΓÇô Quick Links */}
++          <div className="flex flex-col items-center md:items-end">
++            <div className="w-full md:w-auto flex flex-col items-center md:items-start">
++              <h4 className="text-white font-semibold text-base mb-5 tracking-wide">Quick Links</h4>
++              <ul className="space-y-3 text-center md:text-left">
++                {quickLinks.map((link) => (
++                  <li key={link.label}>
++                    <a
++                      href={link.href}
++                      className="text-white/60 hover:text-white text-sm transition-colors duration-300 hover:translate-x-1 inline-block"
++                    >
++                      {link.label}
++                    </a>
++                  </li>
++                ))}
++              </ul>
+ 
+-            {/* Support Email */}
+-            <div className="mt-6 flex items-center gap-2 text-white/60 text-sm">
+-              <span>≡ƒôº</span>
+-              <a
+-                href="mailto:support@kindoora.com"
+-                className="hover:text-white transition-colors duration-300"
+-              >
+-                support@kindoora.com
+-              </a>
++              {/* Support Email */}
++              <div className="mt-6 flex items-center gap-2 text-white/60 text-sm">
++                <span>≡ƒôº</span>
++                <a
++                  href="mailto:support@kindoora.in"
++                  className="hover:text-white transition-colors duration-300"
++                >
++                  support@kindoora.in
++                </a>
++              </div>
+             </div>
+           </div>
++
+         </div>
+ 
+         {/* Divider */}
+-        <div className="mt-14 border-t border-white/10" />
++        <div className="mt-10 border-t border-white/10" />
+ 
+         {/* Bottom Footer Bar */}
+         <div className="mt-6 flex items-center justify-center">
+           <p className="text-white/50 text-sm text-center">
+-            ┬⌐ 2026 Kindoora. All rights reserved.
++            ┬⌐ {new Date().getFullYear()} Kindoora. All rights reserved.
+           </p>
+         </div>
+       </div>
